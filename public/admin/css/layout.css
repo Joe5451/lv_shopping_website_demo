@@ -1,0 +1,222 @@
+:root {
+	--dark-primary: #0f172a;
+    --dark-secondary: #78716c;
+    --cyan: #2dd4bf;
+    --cyan-900: #164e63;
+    --orange: #facc15;
+    --zinc-400: #a1a1aa;
+}
+
+#admin_sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 210px;
+    background: #fff;
+    transition: all 0.4s ease-in-out;
+}
+
+#admin_sidebar_bg_mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,.6);
+    display: none;
+}
+
+@media (min-width: 992px) {
+    #admin_sidebar {
+        transform: translateX(0%) !important;
+    }
+
+    #admin_sidebar_bg_mobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 992px) {
+    #admin_sidebar {
+        transform: translateX(-100%);
+    }
+}
+
+#admin_sidebar_close_btn_mobile {
+    color: var(--cyan-900);
+    font-size: 2rem;
+    margin-left: 10px;
+    transition: all 0.4s ease-in-out;
+    display: none;
+}
+
+#admin_sidebar_close_btn_mobile:hover {
+    color: var(--cyan);
+}
+
+@media (max-width: 992px) {
+    #admin_sidebar_close_btn_mobile {
+        display: inline-block;
+    }
+}
+
+#admin_header_mobile {
+    box-shadow: 0 2px 2px rgba(0,0,0,.1);
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    background: #fff;
+    width: 100%;
+    display: none;
+}
+
+.admin_header_logo_mobile {
+    color: var(--cyan);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#admin_sidebar_open_btn_mobile {
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    color: var(--cyan-900);
+}
+
+#admin_sidebar_open_btn_mobile:hover {
+    color: var(--cyan);
+}
+
+#admin_header_space {
+    height: 46px;
+    display: none;
+}
+
+
+@media (max-width: 992px) {
+    #admin_header_mobile {
+        display: flex;
+    }
+
+    #admin_header_space {
+        display: block;
+    }
+}
+
+.admin_sidebar_logo {
+    color: var(--cyan);
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    padding: 10px 30px;
+}
+
+.admin_sidebar_nav {
+    overflow-y: auto;
+    max-height: calc(100vh - 130px);
+}
+
+.admin_sidebar_link,
+.admin_sidebar_dropdown_title {
+    display: block;
+    padding: 10px 30px;
+    font-size: 1.125rem;
+    color: var(--zinc-400);
+    transition: all 0.4s ease-in-out;
+    cursor: pointer;
+}
+
+.admin_sidebar_dropdown_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin_sidebar_link:hover,
+.admin_sidebar_link.active,
+.admin_sidebar_dropdown_title:hover,
+.admin_sidebar_dropdown_title.active {
+    background: #f4f4f5;
+    color: var(--cyan);
+}
+
+.admin_sidebar_dropdown_content {
+    background: #fafafa;
+    display: none;
+}
+
+.admin_sidebar_dropdown_link {
+    display: block;
+    padding: 10px 40px;
+    color: var(--zinc-400);
+    transition: all 0.4s ease-in-out;
+}
+
+.admin_sidebar_dropdown_link:hover,
+.admin_sidebar_dropdown_link.active {
+    color: var(--cyan);
+}
+
+.admin_content {
+    padding-left: 210px;
+    min-height: 100vh;
+    transition: all 0.4s ease-in-out;
+}
+
+@media (max-width:992px) {
+    .admin_content {
+        padding-left: 0;
+    }
+}
+
+.admin_nav {
+    background: #e5e5e5;
+    padding: 10px 15px 0;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.admin_nav_link {
+    padding: 5px 15px;
+    background: #fafafa;
+    border-radius: 10px 10px 0 0;
+    margin: 0 5px;
+    color: var(--dark-secondary);
+    font-weight: bold;
+    transition: all 0.4s ease-in-out;
+}
+
+.admin_nav_link:hover,
+.admin_nav_link.active {
+    background: #fff;
+    color: var(--cyan);
+}
+
+.admin_sub_nav {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    overflow-x: auto;
+    margin-bottom: 15px;
+}
+
+.admin_sub_nav_link {
+    color: var(--dark-secondary);
+    background: #f4f4f5;
+    margin: 0 10px;
+    padding: 5px 15px;
+    transition: all 0.4s ease-in-out;
+    flex-shrink: 0;
+}
+
+.admin_sub_nav_link:hover,
+.admin_sub_nav_link.active {
+    background: var(--cyan);
+    color: #fff;
+}
