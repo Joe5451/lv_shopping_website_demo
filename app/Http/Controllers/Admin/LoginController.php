@@ -4,24 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Gate;
+use App\Libraries\AdminAuth;
+
 
 class LoginController extends Controller
 {
-    const ADMIN_ACCOUNT = 'admin';
-    const ADMIN_PASSWORD = 'admin';
-
     public function loginPage(Request $request){
-
         return view('admin.login');
     }
 
     public function login(Request $request){
-        $account = $request->input('account');
-        $password = $request->input('password');
+        $account = $request->input('account'); // admin
+        $password = $request->input('password'); // admin123
 
-        if ($account == self::ADMIN_ACCOUNT && $password == self::ADMIN_PASSWORD) {
+        AdminAuth::logIn($account, $password);
+
+        if (AdminAuth::isLoggedIn()) {
             return view('admin.alert', [
                 'icon_type' => 'success',
                 'message' => '登入成功!',
@@ -34,5 +34,10 @@ class LoginController extends Controller
                 'redirect' => url('admin') . '/login'
             ]);
         }
+    }
+
+    public function logout() {
+        AdminAuth::logOut();
+        return redirect(AdminAuth::HOME);
     }
 }

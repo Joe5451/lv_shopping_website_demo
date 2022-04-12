@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use App\Libraries\AdminAuth;
 
 class NewsController extends Controller
 {
-    public function list(Request $request){
-
+    public function __construct()
+    {
+        if (!AdminAuth::isLoggedIn()) {
+            return redirect(AdminAuth::HOME);
+        }
+    }
+    
+    public function list(Request $request) {
         return view('admin.news_list');
     }
 }

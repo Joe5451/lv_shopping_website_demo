@@ -1,4 +1,4 @@
-<?php include('head.php'); ?>
+@include('admin.head')
 
 <nav class="admin_nav">
     <a href="news_list.php" class="admin_nav_link active">最新消息列表</a>
@@ -61,4 +61,4 @@ NewsList;
     </div>
 </div>
 
-<?php include('foot.php'); ?>
+@include('admin.foot')

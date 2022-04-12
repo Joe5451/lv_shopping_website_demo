@@ -22,11 +22,12 @@ Route::get('/', function () {
     return view('admin.login');
 });
 
-Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('login');
+Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');
 Route::post('admin/login', [AdminLoginController::class, 'login']);
 
-Route::prefix('admin')->name('admin.')->middleware(['auth:admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(function () {
     Route::get('/news_list', [AdminNewsController::class, 'list'])->name('news_list');
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     // Route::get('/', [ControlsPageController::class, 'home'])->name('home');
     // Route::resource('products', ControlsProductController::class)->except(['show']);
