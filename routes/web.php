@@ -3,6 +3,7 @@
 // admin
 use App\Http\Controllers\Admin\LoginController as AdminLoginController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\NewsCategoryController as AdminNewsCategoryController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,9 @@ Route::post('admin/login', [AdminLoginController::class, 'login']);
 
 Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(function () {
     Route::get('/news_list', [AdminNewsController::class, 'list'])->name('news_list');
+    Route::get('/news_category_list', [AdminNewsCategoryController::class, 'list'])->name('news_category_list');
+    Route::get('/news_category_add_form', [AdminNewsCategoryController::class, 'add_form'])->name('news_category_add_form');
+    Route::post('/news_category_add', [AdminNewsCategoryController::class, 'add'])->name('news_category_add');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     // Route::get('/', [ControlsPageController::class, 'home'])->name('home');

@@ -58,10 +58,10 @@
         </div>
         
         <div class="admin_sidebar_dropdown">
-            <div class="admin_sidebar_dropdown_title">最新消息 <i class="fas fa-angle-down"></i></div>
+            <div class="admin_sidebar_dropdown_title" menu="news">最新消息 <i class="fas fa-angle-down"></i></div>
             <div class="admin_sidebar_dropdown_content">
-                <a href="news_list.php" class="admin_sidebar_dropdown_link">最新消息列表</a>
-                <a href="news_category_list.php" class="admin_sidebar_dropdown_link">最新消息類別</a>
+                <a href="news_list" class="admin_sidebar_dropdown_link" sub-menu="news_list">最新消息列表</a>
+                <a href="news_category_list" class="admin_sidebar_dropdown_link" sub-menu="news_category">最新消息類別</a>
             </div>
         </div>
 
@@ -91,6 +91,15 @@
     </nav>
 
     <script>
+        $(document).ready(function() {
+            $('.admin_sidebar_dropdown_title[menu={{ $main_menu }}]').addClass('active');
+            $('.admin_sidebar_dropdown_link[sub-menu={{ $sub_menu }}]').addClass('active');
+
+            $('.admin_sidebar_dropdown_title.active').find('i').addClass('fa-rotate-180');
+            $('.admin_sidebar_dropdown_title.active').next('.admin_sidebar_dropdown_content').slideDown();
+
+        });
+
         $('.admin_sidebar_dropdown_title').click(function() {
             $(this).toggleClass('active');
             $(this).find('i').toggleClass('fa-rotate-180');
