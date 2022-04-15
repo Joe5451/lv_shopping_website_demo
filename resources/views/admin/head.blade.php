@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/fontawesome.css" />
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/tailwind.js"></script>
+	<script src="js/sweetalert2.all.min.js"></script>
     <title>購物網站後台</title>
 </head>
 <body>

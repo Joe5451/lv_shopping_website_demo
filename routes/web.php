@@ -31,6 +31,8 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/news_category_list', [AdminNewsCategoryController::class, 'list'])->name('news_category_list');
     Route::get('/news_category_add_form', [AdminNewsCategoryController::class, 'add_form'])->name('news_category_add_form');
     Route::post('/news_category_add', [AdminNewsCategoryController::class, 'add'])->name('news_category_add');
+    Route::post('/news_category_batch_action', [AdminNewsCategoryController::class, 'batch_action'])->name('news_category_batch_action');
+    Route::get('/news_category_delete/{id}', [AdminNewsCategoryController::class, 'delete'])->name('news_category_delete');
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     // Route::get('/', [ControlsPageController::class, 'home'])->name('home');
