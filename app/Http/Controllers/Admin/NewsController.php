@@ -27,4 +27,8 @@ class NewsController extends Controller
         
         return view('admin.news_list', $data);
     }
+
+    public function add_form() {
+        
+    }
 }
