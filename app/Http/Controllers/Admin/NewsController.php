@@ -29,6 +29,10 @@ class NewsController extends Controller
     }
 
     public function add_form() {
+
+    }
+
+    public function update_form() {
         
     }
 }
