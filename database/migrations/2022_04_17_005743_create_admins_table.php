@@ -19,9 +19,9 @@ class CreateAdminsTable extends Migration
             
             // $table->id('admin_id'); // bigIncrements() 別名，建立自增 UNSIGNED BIGINT 類型主鍵
             $table->increments('admin_id'); // 建立自增 UNSIGNED INTEGER 類型主鍵
-            $table->string('name');
-            $table->string('account');
-            $table->string('password');
+            $table->string('name')->comment('管理員名稱');
+            $table->string('account')->comment('帳號');
+            $table->string('password')->comment('密碼');
             // $table->timestamps(); // 建立 created_at 和 updated_at
         });
     }

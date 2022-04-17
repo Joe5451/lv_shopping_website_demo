@@ -7,8 +7,8 @@
 
 <div class="container mx-auto px-4 pb-8">
     <nav class="admin_sub_nav custom_horizontal_scrollbar">
-        <a href="news_list.php" disabled class="admin_sub_nav_link active">列表</a>
-        <a href="news_add_form.php" class="admin_sub_nav_link">新增</a>
+        <a href="{{ route('admin.news_list') }}" disabled class="admin_sub_nav_link active">列表</a>
+        <a href="{{ route('admin.news_add_form') }}" class="admin_sub_nav_link">新增</a>
         <a href="#" class="admin_sub_nav_link">勾選顯示</a>
         <a href="#" class="admin_sub_nav_link">勾選隱藏</a>
         <a href="#" class="admin_sub_nav_link">勾選刪除</a>
@@ -37,24 +37,41 @@
                     </script>
                 </thead>
                 <tbody class="text-slate-700">
-                    <?php
-                        for ($i=1; $i<=10; $i++) {
-                            echo <<<NewsList
-                                <tr>
-                                    <td class="border border-slate-300 text-right">
-                                        $i <input type="checkbox" name="multiple_items_checked[]" class="mr-2">
-                                    </td>
-                                    <td class="border border-slate-300">2022/01/05</td>
-                                    <td class="border border-slate-300">好康優惠</td>
-                                    <td class="border border-slate-300 text-left">最新商品快報</td>
-                                    <td class="border border-slate-300">顯示</td>
-                                    <td class="border border-slate-300">
-                                        <a href="news_update_form.php" class="link_btn">設定</a>
-                                    </td>
-                                </tr>
-NewsList;
-                        }
-                    ?>
+                    @if (count($news) == 0)
+                        <tr>
+                            <td colspan="6" class="border border-slate-300 text-center">
+                                無資料
+                            </td>
+                        </tr>
+                    @endif
+
+                    @foreach ($news as $new)
+                        <tr>
+                            <td class="border border-slate-300 text-right">
+                            {{ $loop->index + 1 }} <input type="checkbox" name="checked_ids[]" class="mr-2">
+                            </td>
+                            <td class="border border-slate-300">{{ $new->date }}</td>
+                            <td class="border border-slate-300">
+                                @if (is_null($new->news_category))
+                                    無
+                                @else
+                                    {{ $new->news_category->category_name }}
+                                @endif
+                            </td>
+                            <td class="border border-slate-300 text-left">{{ $new->title }}</td>
+                            <td class="border border-slate-300">
+                                @if ($new->display == '1')
+                                    顯示
+                                @else
+                                    隱藏
+                                @endif
+                            </td>
+                            <td class="border border-slate-300">
+                                <a href="news_update_form.php" class="link_btn">設定</a>
+                            </td>
+                        </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </form>

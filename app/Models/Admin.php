@@ -17,6 +17,8 @@ class Admin extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $primaryKey = 'admin_id';
+    
     protected $fillable = [
         'name',
         'account',
