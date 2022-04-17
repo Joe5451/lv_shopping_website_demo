@@ -54,7 +54,7 @@ class AdminAuth {
 
         if (!empty($_admin) && $_admin->password == md5($password)) {
             self::$admin = $_admin;
-            session(['adminId' => Crypt::encryptString(self::$admin->id)]);
+            session(['adminId' => Crypt::encryptString(self::$admin->admin_id)]);
         }
     }
 
