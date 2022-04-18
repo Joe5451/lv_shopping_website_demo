@@ -63,4 +63,35 @@ class NewsController extends Controller
         
         return view('admin.news_update_form', $data);
     }
+
+    public function update(Request $request) {
+        $data = $request->input();
+        $id = $request->input('id');
+        unset($data['_token']);
+        unset($data['id']);
+        unset($data['delete_img']);
+        
+        $img_src = $request->file('img_src');
+        $delete_img = $request->input('delete_img');
+
+        if (is_null($img_src) && $delete_img == 'true') {
+            $data['img_src'] = '';
+        } else if (!is_null($img_src)) {
+            if ($request->file('img_src')->isValid()) {
+                $extension = $request->img_src->extension();
+                $path = $request->img_src->store('images');
+
+                $data['img_src'] = $path;
+            }
+        }
+
+        News::where('id', $id)
+        ->update($data);
+
+        return view('admin.alert', [
+            'icon_type' => 'success',
+            'message' => '更新成功!',
+            'redirect' => route('admin.news_update_form', $id)
+        ]);
+    }
 }

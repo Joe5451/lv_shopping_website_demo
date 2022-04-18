@@ -11,19 +11,33 @@
         <a href="news_add_form.php" class="admin_sub_nav_link">新增</a>
     </nav>
 
-    <form action="" method="post" class="admin_form max-w-screen-sm">
+    <form action="{{ route('admin.news_update') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
         <div class="form_group">
             <label class="form_label">封面圖</label>
-            <input type="file" name="img_src" class="dropify" data-default-file="{{ env('APP_URL') . '/storage/app/'. $new->img_src }}" data-max-file-size="1M" />
+
+            <?php
+                if ($new->img_src != '') {
+                    $img_src = env('APP_URL') . '/storage/app/'. $new->img_src;
+                } else {
+                    $img_src = '';
+                }
+            ?>
             
+            <input type="file" name="img_src" class="dropify" data-default-file="{{ $img_src }}" data-max-file-size="1M" />
+            <input type="hidden" name="delete_img" value="false">
+
             <script>
-                $('.dropify').dropify({
+                let drEvent = $('.dropify').dropify({
                     messages: {
                         'default': '將文件拖放到此處或單擊',
                         'replace': '拖放或點擊替換',
                         'remove':  '刪除',
                         'error':   '糟糕，發生了錯誤'
                     }
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    $('input[name=delete_img]').val('true');
                 });
             </script>
         </div>
@@ -74,7 +88,10 @@
             <textarea name="content" class="form_textarea custom_scrollbar">{{ $new->content }}</textarea>
         </div>
 
+        @csrf
+
         <div class="flex">
+            <input type="hidden" name="id" value="{{ $new->id }}">
             <button class="form_btn_primary ml-auto">更新</button>
         </div>
     </form>
