@@ -1,14 +1,14 @@
 @include('admin.head')
 
 <nav class="admin_nav">
-    <a href="news_list.php" class="admin_nav_link active">最新消息列表</a>
-    <a href="news_category_list.php" class="admin_nav_link">最新消息類別</a>
+    <a href="{{ route('admin.news_list') }}" class="admin_nav_link active">最新消息列表</a>
+    <a href="{{ route('admin.news_category_list') }}" class="admin_nav_link">最新消息類別</a>
 </nav>
 
 <div class="container mx-auto px-4 pb-8">
     <nav class="admin_sub_nav custom_horizontal_scrollbar">
-        <a href="news_list.php" class="admin_sub_nav_link active">列表</a>
-        <a href="news_add_form.php" class="admin_sub_nav_link">新增</a>
+        <a href="{{ route('admin.news_list') }}" class="admin_sub_nav_link active">列表</a>
+        <a href="{{ route('admin.news_add_form') }}" class="admin_sub_nav_link">新增</a>
     </nav>
 
     <form action="{{ route('admin.news_update') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
