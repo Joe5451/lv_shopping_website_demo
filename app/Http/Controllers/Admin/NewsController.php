@@ -37,8 +37,15 @@ class NewsController extends Controller
     }
 
     public function add(Request $request) {
+        if ($request->file('img_src')->isValid()) {
+            $extension = $request->img_src->extension();
+            $path = $request->img_src->store('images');
+        }
+        
         $data = $request->input();
         unset($data['_token']);
+
+        $data['img_src'] = $path;
 
         News::create($data);
 
@@ -49,8 +56,10 @@ class NewsController extends Controller
         ]);
     }
 
-    public function update_form() {
+    public function update_form($id) {
         $data = $this->head_data;
+        $data['new'] = News::find($id);
+        $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
         
         return view('admin.news_update_form', $data);
     }

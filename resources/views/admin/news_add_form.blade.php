@@ -11,7 +11,23 @@
         <a href="{{ route('admin.news_add_form') }}" class="admin_sub_nav_link active">新增</a>
     </nav>
 
-    <form action="{{ route('admin.news_add') }}" method="post" class="admin_form max-w-screen-sm">
+    <form action="{{ route('admin.news_add') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
+        <div class="form_group">
+            <label class="form_label">封面圖</label>
+            <input type="file" name="img_src" class="dropify" data-max-file-size="1M" />
+            
+            <script>
+                $('.dropify').dropify({
+                    messages: {
+                        'default': '將文件拖放到此處或單擊',
+                        'replace': '拖放或點擊替換',
+                        'remove':  '刪除',
+                        'error':   '糟糕，發生了錯誤'
+                    }
+                });
+            </script>
+        </div>
+        
         <div class="form_group">
             <label class="form_label">標題</label>
             <input type="text" name="title" class="form_control">

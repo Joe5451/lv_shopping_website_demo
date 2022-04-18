@@ -7,11 +7,14 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<base href="<?php echo url('admin'); ?>/">
     <link rel="stylesheet" href="css/admin.css?<?php echo time(); ?>" />
     <link rel="stylesheet" href="css/fontawesome.css" />
+    <link rel="stylesheet" href="css/dropify.css" />
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/tailwind.js"></script>
 	<script src="js/sweetalert2.all.min.js"></script>
+	<script src="js/dropify.js"></script>
     <title>購物網站後台</title>
 </head>
 <body>

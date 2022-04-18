@@ -29,7 +29,7 @@ Route::post('admin/login', [AdminLoginController::class, 'login']);
 Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(function () {
     Route::get('/news_list', [AdminNewsController::class, 'list'])->name('news_list');
     Route::get('/news_add_form', [AdminNewsController::class, 'add_form'])->name('news_add_form');
-    Route::get('/news_update_form', [AdminNewsController::class, 'update_form'])->name('news_update_form');
+    Route::get('/news_update_form/{id}', [AdminNewsController::class, 'update_form'])->name('news_update_form');
     Route::post('/news_add', [AdminNewsController::class, 'add'])->name('news_add');
 
     

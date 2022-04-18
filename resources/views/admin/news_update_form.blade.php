@@ -13,39 +13,65 @@
 
     <form action="" method="post" class="admin_form max-w-screen-sm">
         <div class="form_group">
+            <label class="form_label">封面圖</label>
+            <input type="file" name="img_src" class="dropify" data-default-file="{{ env('APP_URL') . '/storage/app/'. $new->img_src }}" data-max-file-size="1M" />
+            
+            <script>
+                $('.dropify').dropify({
+                    messages: {
+                        'default': '將文件拖放到此處或單擊',
+                        'replace': '拖放或點擊替換',
+                        'remove':  '刪除',
+                        'error':   '糟糕，發生了錯誤'
+                    }
+                });
+            </script>
+        </div>
+        
+        <div class="form_group">
             <label class="form_label">標題</label>
-            <input type="text" name="title" class="form_control" value="最新商品快報">
+            <input type="text" name="title" class="form_control" value="{{ $new->title }}">
         </div>
 
         <div class="form_group">
             <label class="form_label">分類</label>
-            <select name="category" class="form_select">
-                <option value="">無</option>
-                <option value="好康優惠" selected>好康優惠</option>
+            <select name="news_category_id" class="form_select">
+                <option value="none">無</option>
+                @foreach ($news_categories as $news_category)
+                    <option value="{{ $news_category->news_category_id }}">{{ $news_category->category_name }}</option>
+                @endforeach
             </select>
+
+            <script>
+                $('select[name=news_category_id]').val('{{ $new->news_category_id }}');
+            </script>
         </div>
 
         <div class="form_group">
             <label class="form_label">顯示/隱藏</label>
             <select name="display" class="form_select">
-                <option value="true" selected>顯示</option>
-                <option value="false">隱藏</option>
+                <option value="1">顯示</option>
+                <option value="0">隱藏</option>
             </select>
+
+            <script>
+                $('select[name=display]').val('{{ $new->display }}');
+            </script>
         </div>
 
         <div class="form_group">
             <label class="form_label">日期</label>
-            <input type="text" name="date" class="form_control" value="2022/01/05">
+            <input type="text" name="date" class="form_control" value="{{ $new->date }}">
         </div>
 
         <div class="form_group">
             <label class="form_label">摘要</label>
-            <textarea name="summary" class="form_textarea custom_scrollbar">最新消息摘要...</textarea>
+            <textarea name="summary" class="form_textarea custom_scrollbar">{{ $new->summary }}</textarea>
         </div>
 
         <div class="form_group">
             <label class="form_label">內容</label>
-            <textarea name="content" class="form_textarea custom_scrollbar">最新消息內容...</textarea>
+            <textarea name="content" class="form_textarea custom_scrollbar">{{ $new->content }}</textarea>
         </div>
 
         <div class="flex">

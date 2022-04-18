@@ -67,7 +67,7 @@
                                 @endif
                             </td>
                             <td class="border border-slate-300">
-                                <a href="news_update_form.php" class="link_btn">設定</a>
+                                <a href="{{ route('admin.news_update_form', $new->id)  }}" class="link_btn">設定</a>
                             </td>
                         </tr>
                     @endforeach
