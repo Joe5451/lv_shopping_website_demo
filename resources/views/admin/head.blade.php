@@ -69,8 +69,8 @@
             </div>
         </div>
 
-        <div class="admin_sidebar_dropdown" menu="product">
-            <div class="admin_sidebar_dropdown_title">商品管理 <i class="fas fa-angle-down"></i></div>
+        <div class="admin_sidebar_dropdown">
+            <div class="admin_sidebar_dropdown_title" menu="product">商品管理 <i class="fas fa-angle-down"></i></div>
             <div class="admin_sidebar_dropdown_content">
                 <a href="{{ route('admin.product_list') }}" class="admin_sidebar_dropdown_link" sub-menu="product_list">商品列表</a>
                 <a href="{{ route('admin.product_category_list') }}" class="admin_sidebar_dropdown_link" sub-menu="product_category">商品類別</a>
@@ -97,7 +97,9 @@
     <script>
         $(document).ready(function() {
             $('.admin_sidebar_dropdown_title[menu={{ $main_menu }}]').addClass('active');
-            $('.admin_sidebar_dropdown_link[sub-menu={{ $sub_menu }}]').addClass('active');
+            
+            $('.admin_sidebar_dropdown_title[menu={{ $main_menu }}]')
+            .parent().find('.admin_sidebar_dropdown_link[sub-menu={{ $sub_menu }}]').addClass('active');
 
             $('.admin_sidebar_dropdown_title.active').find('i').addClass('fa-rotate-180');
             $('.admin_sidebar_dropdown_title.active').next('.admin_sidebar_dropdown_content').slideDown();
