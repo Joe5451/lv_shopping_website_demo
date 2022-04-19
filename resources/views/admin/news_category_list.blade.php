@@ -16,7 +16,6 @@
 
         <script>
             function batch_action(action) {
-                
                 $('input[name=action]').val(action);
                 $('#batch_update_form').submit();
             }

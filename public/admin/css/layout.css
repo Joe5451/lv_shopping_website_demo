@@ -125,7 +125,7 @@
 }
 
 .admin_sidebar_nav {
-    overflow-y: auto;
+    overflow: overlay;
     max-height: calc(100vh - 130px);
 }
 

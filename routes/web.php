@@ -32,7 +32,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/news_update_form/{id}', [AdminNewsController::class, 'update_form'])->name('news_update_form');
     Route::post('/news_add', [AdminNewsController::class, 'add'])->name('news_add');
     Route::post('/news_update', [AdminNewsController::class, 'update'])->name('news_update');
-
+    Route::post('/news_batch_action', [AdminNewsController::class, 'batch_action'])->name('news_batch_action');
     
     Route::get('/news_category_list', [AdminNewsCategoryController::class, 'list'])->name('news_category_list');
     Route::get('/news_category_add_form', [AdminNewsCategoryController::class, 'add_form'])->name('news_category_add_form');

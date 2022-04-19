@@ -122,7 +122,7 @@ class NewsCategoryController extends Controller
         return true;
     }
 
-    function batch_display_update($display, $request) {
+    private function batch_display_update($display, $request) {
         $ids = $request->input('checked_ids');
 
         if (is_null($ids)) {
@@ -138,7 +138,7 @@ class NewsCategoryController extends Controller
         return true;
     }
 
-    function batch_delete($request) {
+    private function batch_delete($request) {
         $ids = $request->input('checked_ids');
 
         if (is_null($ids)) {
