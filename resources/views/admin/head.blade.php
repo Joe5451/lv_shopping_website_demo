@@ -78,19 +78,19 @@
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="{{ route('admin.order_list') }}" class="admin_sidebar_link">訂單管理</a>
+            <a href="@{{ route('admin.order_list') }}" class="admin_sidebar_link">訂單管理</a>
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="{{ route('admin.member_list') }}" class="admin_sidebar_link">會員管理</a>
+            <a href="@{{ route('admin.member_list') }}" class="admin_sidebar_link">會員管理</a>
         </div>
         
         <div class="admin_sidebar_link_wrap">
-            <a href="{{ route('admin.contact_list') }}" class="admin_sidebar_link">聯絡我們</a>
+            <a href="@{{ route('admin.contact_list') }}" class="admin_sidebar_link">聯絡我們</a>
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
+            <a href="@{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
         </div>
     </nav>
 

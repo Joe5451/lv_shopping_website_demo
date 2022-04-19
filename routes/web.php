@@ -45,8 +45,8 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/news_category_delete/{id}', [AdminNewsCategoryController::class, 'delete'])->name('news_category_delete');
 
     Route::get('/product_list', [AdminProductController::class, 'list'])->name('product_list');
-    Route::get('/product_add_from', [AdminProductController::class, 'add_form'])->name('product_add_from');
-    Route::get('/product_update_from/{id}', [AdminProductController::class, 'update_form'])->name('product_update_from');
+    Route::get('/product_add_form', [AdminProductController::class, 'add_form'])->name('product_add_form');
+    Route::get('/product_update_form/{id}', [AdminProductController::class, 'update_form'])->name('product_update_form');
     Route::post('/product_add', [AdminProductController::class, 'add'])->name('product_add');
     Route::post('/product_update', [AdminProductController::class, 'update'])->name('product_update');
     Route::post('/product_batch_action', [AdminProductController::class, 'batch_action'])->name('product_batch_action');

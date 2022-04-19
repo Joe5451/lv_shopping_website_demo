@@ -24,7 +24,7 @@ class ProductController extends Controller
     
     public function list(Request $request) {
         $data = $this->head_data;
-        $data['products'] = Product::orderBy('date', 'desc')->get();
+        $data['products'] = Product::orderBy('sequence', 'desc')->get();
         
         return view('admin.product_list', $data);
     }
