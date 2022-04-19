@@ -64,33 +64,33 @@
         <div class="admin_sidebar_dropdown">
             <div class="admin_sidebar_dropdown_title" menu="news">最新消息 <i class="fas fa-angle-down"></i></div>
             <div class="admin_sidebar_dropdown_content">
-                <a href="news_list" class="admin_sidebar_dropdown_link" sub-menu="news_list">最新消息列表</a>
-                <a href="news_category_list" class="admin_sidebar_dropdown_link" sub-menu="news_category">最新消息類別</a>
+                <a href="{{ route('admin.news_list') }}" class="admin_sidebar_dropdown_link" sub-menu="news_list">最新消息列表</a>
+                <a href="{{ route('admin.news_category_list') }}" class="admin_sidebar_dropdown_link" sub-menu="news_category">最新消息類別</a>
             </div>
         </div>
 
-        <div class="admin_sidebar_dropdown">
+        <div class="admin_sidebar_dropdown" menu="product">
             <div class="admin_sidebar_dropdown_title">商品管理 <i class="fas fa-angle-down"></i></div>
             <div class="admin_sidebar_dropdown_content">
-                <a href="product_list.php" class="admin_sidebar_dropdown_link">商品列表</a>
-                <a href="product_category_list.php" class="admin_sidebar_dropdown_link">商品類別</a>
+                <a href="{{ route('admin.product_list') }}" class="admin_sidebar_dropdown_link" sub-menu="product_list">商品列表</a>
+                <a href="{{ route('admin.product_category_list') }}" class="admin_sidebar_dropdown_link" sub-menu="product_category">商品類別</a>
             </div>
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="order_list.php" class="admin_sidebar_link">訂單管理</a>
+            <a href="{{ route('admin.order_list') }}" class="admin_sidebar_link">訂單管理</a>
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="member_list.php" class="admin_sidebar_link">會員管理</a>
+            <a href="{{ route('admin.member_list') }}" class="admin_sidebar_link">會員管理</a>
         </div>
         
         <div class="admin_sidebar_link_wrap">
-            <a href="contact_list.php" class="admin_sidebar_link">聯絡我們</a>
+            <a href="{{ route('admin.contact_list') }}" class="admin_sidebar_link">聯絡我們</a>
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="logout" class="admin_sidebar_link">登出</a>
+            <a href="{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
         </div>
     </nav>
 
