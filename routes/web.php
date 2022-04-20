@@ -48,7 +48,7 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/product_add_form', [AdminProductController::class, 'add_form'])->name('product_add_form');
     Route::get('/product_update_form/{id}', [AdminProductController::class, 'update_form'])->name('product_update_form');
     Route::post('/product_add', [AdminProductController::class, 'add'])->name('product_add');
-    Route::post('/product_update', [AdminProductController::class, 'update'])->name('product_update');
+    Route::post('/product_update/{id}', [AdminProductController::class, 'update'])->name('product_update');
     Route::post('/product_batch_action', [AdminProductController::class, 'batch_action'])->name('product_batch_action');
 
     Route::get('/product_category_list', [AdminProductCategoryController::class, 'list'])->name('product_category_list');

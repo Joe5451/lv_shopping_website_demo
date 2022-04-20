@@ -50,9 +50,16 @@
                         <tr>
                             <td class="border border-slate-300 text-right">
                                 {{ $loop->index + 1 }} <input type="checkbox" name="checked_ids[]" value="{{ $product->id }}" class="mr-2">
+                                <input type="hidden" name="ids[]" value="{{ $product->id }}">
                             </td>
-                            <td class="border border-slate-300">天材地寶</td>
-                            <td class="border border-slate-300 text-left">千年人參</td>
+                            <td class="border border-slate-300">
+                                @if (is_null($product->product_category))
+                                    無
+                                @else
+                                    {{ $product->product_category->category_name }}
+                                @endif
+                            </td>
+                            <td class="border border-slate-300 text-left">{{ $product->product_name }}</td>
                             <td class="border border-slate-300 text-left">
                                 <input type="number" class="form_control_secondary text-right" name="sequences[]" value="{{ $product->sequence }}">
                             </td>
@@ -64,7 +71,7 @@
                                 @endif
                             </td>
                             <td class="border border-slate-300">
-                                <a href="{{ route('product_update_form', $product->id) }}" class="link_btn">設定</a>
+                                <a href="{{ route('admin.product_update_form', $product->id) }}" class="link_btn">設定</a>
                             </td>
                         </tr>
                     @endforeach

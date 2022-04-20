@@ -33,6 +33,6 @@ class Product extends Model
     ];
 
     public function product_category() {
-        return $this->hasOne('App\Models\ProductCategory', 'news_category_id', 'news_category_id');
+        return $this->hasOne('App\Models\ProductCategory', 'product_category_id', 'product_category_id');
     }
 }

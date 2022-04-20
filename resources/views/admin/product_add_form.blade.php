@@ -11,7 +11,7 @@
         <a href="{{ route('admin.product_add_form') }}" class="admin_sub_nav_link active">新增</a>
     </nav>
 
-    <form action="" method="post" class="admin_form max-w-screen-sm">
+    <form action="{{ route('admin.product_add') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
         <div class="form_group">
             <label class="form_label">商品名稱</label>
             <input type="text" name="product_name" class="form_control" required>
@@ -61,11 +61,11 @@
                         <div class="specification_wrap flex flex-wrap border-b border-slate-300 mb-3">
                             <div class="my-2 flex items-center">
                                 <label class="shrink-0 text-slate-500">名稱：</label>
-                                <input type="text" class="w-36 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
+                                <input type="text" name="option_names[]" class="w-36 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
                             </div>
                             <div class="my-2 flex items-center">
                                 <label class="shrink-0 text-slate-500">順序：</label>
-                                <input type="number" value="0" class="w-16 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
+                                <input type="number" name="option_sequences[]" value="0" class="w-16 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
                                 <button type="button" class="admin_minus_btn" onclick="deleteSpecification(this);">
                                     <i class="fas fa-minus-circle"></i>
                                 </button>
