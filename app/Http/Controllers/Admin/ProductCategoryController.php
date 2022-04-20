@@ -24,15 +24,15 @@ class ProductCategoryController extends Controller
     
     public function list() {
         $data = $this->head_data;
-        $data['news_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
+        $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
 
-        return view('admin.news_category_list', $data);
+        return view('admin.product_category_list', $data);
     }
 
     public function add_form() {
         $data = $this->head_data;
         
-        return view('admin.news_category_add_form', $data);
+        return view('admin.product_category_add_form', $data);
     }
 
     public function add(Request $request) {
@@ -44,12 +44,12 @@ class ProductCategoryController extends Controller
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => '新增成功!',
-            'redirect' => route('admin.news_category_list')
+            'redirect' => route('admin.product_category_list')
         ]);
     }
 
     public function delete($id, Request $request) {
-        ProductCategory::where('news_category_id', $id)->delete();
+        ProductCategory::where('product_category_id', $id)->delete();
         return $this->alertAndRedirectList('刪除成功', 'success');
     }
 
@@ -86,7 +86,7 @@ class ProductCategoryController extends Controller
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => $action_message . '成功!',
-            'redirect' => route('admin.news_category_list')
+            'redirect' => route('admin.product_category_list')
         ]);
     }
 
@@ -109,7 +109,7 @@ class ProductCategoryController extends Controller
             ]);
 
             if (!$validator->fails()) {
-                ProductCategory::where('news_category_id', $id)
+                ProductCategory::where('product_category_id', $id)
                 ->update([
                     'category_name' => $category_names[$index],
                     'sequence' => $sequences[$index]
@@ -130,7 +130,7 @@ class ProductCategoryController extends Controller
             return false;
         }
 
-        ProductCategory::whereIn('news_category_id', $ids)
+        ProductCategory::whereIn('product_category_id', $ids)
         ->update([
             'display' => $display
         ]);
@@ -146,7 +146,7 @@ class ProductCategoryController extends Controller
             return false;
         }
 
-        ProductCategory::whereIn('news_category_id', $ids)->delete();
+        ProductCategory::whereIn('product_category_id', $ids)->delete();
 
         return true;
     }
@@ -155,7 +155,7 @@ class ProductCategoryController extends Controller
         echo view('admin.alert', [
             'icon_type' => $icon,
             'message' => $message,
-            'redirect' => route('admin.news_category_list')
+            'redirect' => route('admin.product_category_list')
         ]);
     }
 }

@@ -30,7 +30,7 @@
         
         <div class="form_group">
             <label class="form_label">標題</label>
-            <input type="text" name="title" class="form_control">
+            <input type="text" name="title" class="form_control" required>
         </div>
 
         <div class="form_group">

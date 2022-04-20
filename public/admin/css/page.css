@@ -34,6 +34,10 @@
     display: block;
 }
 
+.form_select {
+    cursor: pointer;
+}
+
 .form_control,
 .form_select,
 .form_textarea {
