@@ -86,7 +86,7 @@
         </div>
         
         <div class="admin_sidebar_link_wrap">
-            <a href="@{{ route('admin.contact_list') }}" class="admin_sidebar_link">聯絡我們</a>
+            <a href="{{ route('admin.contact_list') }}" menu="contact" class="admin_sidebar_link">聯絡我們</a>
         </div>
 
         <div class="admin_sidebar_link_wrap">
@@ -97,6 +97,7 @@
     <script>
         $(document).ready(function() {
             $('.admin_sidebar_dropdown_title[menu={{ $main_menu }}]').addClass('active');
+            $('.admin_sidebar_link[menu={{ $main_menu }}]').addClass('active');
             
             $('.admin_sidebar_dropdown_title[menu={{ $main_menu }}]')
             .parent().find('.admin_sidebar_dropdown_link[sub-menu={{ $sub_menu }}]').addClass('active');
