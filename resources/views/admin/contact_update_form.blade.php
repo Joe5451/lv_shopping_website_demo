@@ -9,45 +9,51 @@
         <a href="{{ route('admin.contact_list') }}" disabled class="admin_sub_nav_link active">列表</a>
     </nav>
 
-    <form action="" method="post" class="admin_form max-w-screen-sm">
+    <form action="{{ route('admin.contact_update', $contact->id) }}" method="post" class="admin_form max-w-screen-sm">
         <div class="form_group">
             <label class="form_label">時間</label>
-            <input type="text" class="form_control" value="2022/01/05 13:15:30" readonly>
+            <input type="text" class="form_control" value="{{ $contact->datetime }}" readonly>
         </div>
 
         <div class="form_group">
             <label class="form_label">姓名</label>
-            <input type="text" class="form_control" value="測試員" readonly>
+            <input type="text" class="form_control" value="{{ $contact->name }}" readonly>
         </div>
 
         <div class="form_group">
             <label class="form_label">Email</label>
-            <input type="text" class="form_control" value="tester01@email.com" readonly>
+            <input type="text" class="form_control" value="{{ $contact->email }}" readonly>
         </div>
 
         <div class="form_group">
             <label class="form_label">聯絡電話</label>
-            <input type="text" class="form_control" value="0912345678" readonly>
+            <input type="text" class="form_control" value="{{ $contact->phone }}" readonly>
         </div>
 
         <div class="form_group">
             <label class="form_label">內容</label>
-            <textarea class="form_textarea custom_scrollbar" readonly>測試備註</textarea>
+            <textarea class="form_textarea custom_scrollbar" readonly>{{ $contact->content }}</textarea>
         </div>
 
         <div class="form_group">
             <label class="form_label">管理員備註</label>
-            <textarea name="remark" class="form_textarea custom_scrollbar">測試管理員備註</textarea>
+            <textarea name="remark" class="form_textarea custom_scrollbar">{{ $contact->remark }}</textarea>
         </div>
 
         <div class="form_group">
             <label class="form_label">狀態</label>
             <select name="state" class="form_select">
-                <option value="pending" selected>待處理</option>
-                <option value="processing">處理中</option>
-                <option value="solved">已處理</option>
+                <option value="0">未處理</option>
+                <option value="1">處理中</option>
+                <option value="2">已處理</option>
             </select>
+
+            <script>
+                $('select[name=state]').val({{ $contact->state }});
+            </script>
         </div>
+
+        @csrf
 
         <div class="flex">
             <button class="form_btn_primary ml-auto">更新</button>

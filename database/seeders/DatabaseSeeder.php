@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             NewsCategorySeeder::class,
             NewsSeeder::class,
+            ContactSeeder::class,
         ]);
     }
 }

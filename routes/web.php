@@ -59,10 +59,8 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/product_category_delete/{id}', [AdminProductCategoryController::class, 'delete'])->name('product_category_delete');
 
     Route::get('/contact_list', [AdminContactController::class, 'list'])->name('contact_list');
-    Route::get('/contact_add_form', [AdminContactController::class, 'add_form'])->name('contact_add_form');
     Route::get('/contact_update_form/{id}', [AdminContactController::class, 'update_form'])->name('contact_update_form');
-    Route::post('/contact_add', [AdminContactController::class, 'add'])->name('contact_add');
-    Route::post('/contact_update', [AdminContactController::class, 'update'])->name('contact_update');
+    Route::post('/contact_update/{id}', [AdminContactController::class, 'update'])->name('contact_update');
     Route::post('/contact_batch_action', [AdminContactController::class, 'batch_action'])->name('contact_batch_action');
     
 

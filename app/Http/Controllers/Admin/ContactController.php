@@ -29,74 +29,23 @@ class ContactController extends Controller
         return view('admin.contact_list', $data);
     }
 
-    public function add_form() {
-        $data = $this->head_data;
-        $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
-        
-        return view('admin.news_add_form', $data);
-    }
-
-    public function add(Request $request) {
-        if (!is_null($request->file('img_src')) && $request->file('img_src')->isValid()) {
-            $extension = $request->img_src->extension();
-            $path = $request->img_src->store('images');
-        } else {
-            $path = '';
-        }
-        
-        $data = $request->input();
-        unset($data['_token']);
-
-        $data['img_src'] = $path;
-
-        if (is_null($data['summary'])) $data['summary'] = '';
-        if (is_null($data['content'])) $data['content'] = '';
-
-        Contact::create($data);
-
-        return view('admin.alert', [
-            'icon_type' => 'success',
-            'message' => '新增成功!',
-            'redirect' => route('admin.contact_list')
-        ]);
-    }
-
     public function update_form($id) {
         $data = $this->head_data;
-        $data['new'] = Contact::find($id);
-        $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
+        $data['contact'] = Contact::find($id);
         
-        return view('admin.news_update_form', $data);
+        return view('admin.contact_update_form', $data);
     }
 
-    public function update(Request $request) {
+    public function update($id, Request $request) {
         $data = $request->input();
-        $id = $request->input('id');
         unset($data['_token']);
-        unset($data['id']);
-        unset($data['delete_img']);
-        
-        $img_src = $request->file('img_src');
-        $delete_img = $request->input('delete_img');
 
-        if (is_null($img_src) && $delete_img == 'true') {
-            $data['img_src'] = '';
-        } else if (!is_null($img_src)) {
-            if ($request->file('img_src')->isValid()) {
-                $extension = $request->img_src->extension();
-                $path = $request->img_src->store('images');
-
-                $data['img_src'] = $path;
-            }
-        }
-
-        Contact::where('id', $id)
-        ->update($data);
+        Contact::where('id', $id)->update($data);
 
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => '更新成功!',
-            'redirect' => route('admin.news_update_form', $id)
+            'redirect' => route('admin.contact_update_form', $id)
         ]);
     }
 

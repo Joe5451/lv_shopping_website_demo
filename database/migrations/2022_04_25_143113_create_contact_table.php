@@ -22,6 +22,7 @@ class CreateContactTable extends Migration
             $table->string('email', 100)->comment('Email');
             $table->string('phone', 20)->comment('電話');
             $table->mediumText('content')->default('')->comment('內容');
+            $table->mediumText('remark')->default('')->comment('管理員備註');
             $table->tinyInteger('state')->default(0)->comment('處理狀態 (0:未處理, 1:處理中, 2:已處理)');
             $table->dateTime('datetime', 0)->comment('日期');
         });

@@ -62,7 +62,7 @@
                                 {{ $contact_states[$contact->state] }}
                             </td>
                             <td class="border border-slate-300">
-                                <a href="contact_update_form.php" class="link_btn">設定</a>
+                                <a href="{{ route('admin.contact_update_form', $contact->id)  }}" class="link_btn">設定</a>
                             </td>
                         </tr>
                     @endforeach
