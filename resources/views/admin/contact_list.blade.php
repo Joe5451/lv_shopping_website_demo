@@ -7,14 +7,38 @@
 <div class="container mx-auto px-4 pb-8">
     <nav class="admin_sub_nav custom_horizontal_scrollbar">
         <a href="{{ route('admin.contact_list') }}" disabled class="admin_sub_nav_link active">列表</a>
-        <a href="#" class="admin_sub_nav_link">勾選已處理</a>
-        <a href="#" class="admin_sub_nav_link">勾選處理中</a>
-        <a href="#" class="admin_sub_nav_link">勾選未處理</a>
-        <a href="#" class="admin_sub_nav_link">勾選刪除</a>
+        <a onclick="batch_action('solved');" class="admin_sub_nav_link">勾選已處理</a>
+        <a onclick="batch_action('processing');" class="admin_sub_nav_link">勾選處理中</a>
+        <a onclick="batch_action('pending');" class="admin_sub_nav_link">勾選未處理</a>
+        <a onclick="confirmBatchDelete();" class="admin_sub_nav_link">勾選刪除</a>
+
+        <script>
+            function batch_action(action) {
+                $('input[name=action]').val(action);
+                $('#batch_update_form').submit();
+            }
+
+            function confirmBatchDelete() {
+                Swal.fire({
+                    icon: 'question',
+                    title: '確定執行刪除?',
+                    showCancelButton: true,
+                    cancelButtonText: '取消',
+                    confirmButtonText: '確定',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('input[name=action]').val('delete');
+                        $('#batch_update_form').submit();
+                    } 
+                })
+            }
+        </script>
     </nav>
 
     <div class="table_container overflow-x-auto custom_horizontal_scrollbar">
-        <form action="" method="post">
+        <form action="{{ route('admin.contact_batch_action') }}" method="post" id="batch_update_form">
+            <input type="hidden" name="action" value="none">
+
             <table class="custom_table table-auto w-full border-collapse border border-slate-400 min-w-max">
                 <thead class="bg-slate-100 text-slate-700">
                     <tr>
@@ -48,7 +72,8 @@
                     @foreach ($contacts as $contact)
                         <tr>
                             <td class="border border-slate-300 text-right">
-                                {{ $loop->index + 1 }} <input type="checkbox" name="checked_ids[]" class="mr-2">
+                                {{ $loop->index + 1 }} <input type="checkbox" name="checked_ids[]" value="{{ $contact->id }}" class="mr-2">
+                                <input type="hidden" name="ids[]" value="{{ $contact->id }}">
                             </td>
                             <td class="border border-slate-300">{{ $contact->datetime }}</td>
                             <td class="border border-slate-300">{{ $contact->email }}</td>
@@ -69,6 +94,9 @@
 
                 </tbody>
             </table>
+
+            @csrf
+
         </form>
     </div>
 </div>

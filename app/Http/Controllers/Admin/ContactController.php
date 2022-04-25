@@ -58,13 +58,17 @@ class ContactController extends Controller
         }
 
         switch ($action) {
-            case 'display_on':
-                $result = $this->batch_display_update(1, $request);
-                $action_message = '顯示';
+            case 'solved':
+                $result = $this->batch_state_update(2, $request);
+                $action_message = '批次勾選已處理';
                 break;
-            case 'display_off':
-                $result = $this->batch_display_update(0, $request);
-                $action_message = '隱藏';
+            case 'processing':
+                $result = $this->batch_state_update(1, $request);
+                $action_message = '批次勾選處理中';
+                break;
+            case 'pending':
+                $result = $this->batch_state_update(0, $request);
+                $action_message = '批次勾選未處理';
                 break;
             case 'delete':
                 $result = $this->batch_delete($request);
@@ -82,7 +86,7 @@ class ContactController extends Controller
         ]);
     }
 
-    private function batch_display_update($display, $request) {
+    private function batch_state_update($state, $request) {
         $ids = $request->input('checked_ids');
 
         if (is_null($ids)) {
@@ -92,7 +96,7 @@ class ContactController extends Controller
         
         Contact::whereIn('id', $ids)
         ->update([
-            'display' => $display
+            'state' => $state
         ]);
 
         return true;
