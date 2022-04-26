@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\NewsCategoryController as AdminNewsCategoryContro
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,13 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/contact_update_form/{id}', [AdminContactController::class, 'update_form'])->name('contact_update_form');
     Route::post('/contact_update/{id}', [AdminContactController::class, 'update'])->name('contact_update');
     Route::post('/contact_batch_action', [AdminContactController::class, 'batch_action'])->name('contact_batch_action');
+
+    Route::get('/member_list', [AdminMemberController::class, 'list'])->name('member_list');
+    Route::get('/member_add_form', [AdminMemberController::class, 'add_form'])->name('member_add_form');
+    Route::get('/member_update_form/{id}', [AdminMemberController::class, 'update_form'])->name('member_update_form');
+    Route::post('/member_add', [AdminMemberController::class, 'add'])->name('member_add');
+    Route::post('/member_update/{id}', [AdminMemberController::class, 'update'])->name('member_update');
+    Route::post('/member_batch_action', [AdminMemberController::class, 'batch_action'])->name('member_batch_action');
     
 
     // Route::get('/', [ControlsPageController::class, 'home'])->name('home');

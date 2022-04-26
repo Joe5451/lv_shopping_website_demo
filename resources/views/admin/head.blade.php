@@ -82,7 +82,7 @@
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="@{{ route('admin.member_list') }}" class="admin_sidebar_link">會員管理</a>
+            <a href="{{ route('admin.member_list') }}" menu="member" class="admin_sidebar_link">會員管理</a>
         </div>
         
         <div class="admin_sidebar_link_wrap">
