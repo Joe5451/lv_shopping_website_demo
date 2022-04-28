@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategory
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 
+// Front
+use App\Http\Controllers\Front\NewsController as NewsController;
+
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +27,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return view('admin.login');
-});
+    return view('front.welcome');
+})->name('home');
+
+Route::get('/news_list', [NewsController::class, 'list'])->name('news_list');
+
 
 Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');
 Route::post('admin/login', [AdminLoginController::class, 'login']);

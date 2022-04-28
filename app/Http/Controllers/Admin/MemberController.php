@@ -38,6 +38,13 @@ class MemberController extends Controller
         $data = $request->input();
         unset($data['_token']);
 
+        $existMember = Member::where('account', $data['account'])->take(1)->get();
+
+        if (count($existMember) > 0) {
+            $this->alertAndHistoryBack('帳號已存在，請重新設置!', 'warning');
+            return false;
+        }
+
         $data['password'] = md5($data['password']);
         $data['datetime'] = date('Y-m-d H:i:s');
 
@@ -61,8 +68,20 @@ class MemberController extends Controller
 
     public function update($id, Request $request) {
         $data = $request->input();
+
+        $existMember = Member::where('account', $data['account'])
+        ->where('member_id', '!=', $id)
+        ->take(1)->get();
+
+        if (count($existMember) > 0) {
+            $this->alertAndHistoryBack('帳號已存在，請重新設置!', 'warning');
+            return false;
+        }
+        
         if (is_null($data['password'])) unset($data['password']);
         else $data['password'] = md5($data['password']);
+
+        if (is_null($data['remark'])) $data['remark'] = '';
         
         unset($data['_token']);
         
@@ -127,5 +146,11 @@ class MemberController extends Controller
             'redirect' => route('admin.member_list')
         ]);
     }
-    
+
+    private function alertAndHistoryBack($message = '操作錯誤!', $icon = 'info') {
+        echo view('admin.history_back', [
+            'icon_type' => $icon,
+            'message' => $message,
+        ]);
+    }
 }
