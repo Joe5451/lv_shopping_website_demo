@@ -2,6 +2,7 @@
 
 // admin
 use App\Http\Controllers\Admin\LoginController as AdminLoginController;
+use App\Http\Controllers\Admin\HomeSliderController as AdminHomeSliderController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\NewsCategoryController as AdminNewsCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -27,22 +28,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('front.home');
-// })->name('home');
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-
-
 Route::get('/news_list', [NewsController::class, 'list'])->name('news_list');
 
 
-Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');
-Route::post('admin/login', [AdminLoginController::class, 'login']);
+// Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');
+// Route::post('admin/login', [AdminLoginController::class, 'login']);
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::get('/login', [AdminLoginController::class, 'loginPage'])->name('login');
+    Route::post('/login', [AdminLoginController::class, 'login']);
+});
 
 Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(function () {
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
+    Route::get('/home_slider', [AdminHomeSliderController::class, 'list'])->name('home_slider');
+
+    
     Route::get('/news_list', [AdminNewsController::class, 'list'])->name('news_list');
     Route::get('/news_add_form', [AdminNewsController::class, 'add_form'])->name('news_add_form');
     Route::get('/news_update_form/{id}', [AdminNewsController::class, 'update_form'])->name('news_update_form');

@@ -57,8 +57,11 @@
     <a href="#" class="admin_sidebar_logo">TEMPLATE</a>
 
     <nav class="admin_sidebar_nav custom_scrollbar">
-        <div class="admin_sidebar_link_wrap">
-            <a href="#" class="admin_sidebar_link">首頁</a>
+        <div class="admin_sidebar_dropdown">
+            <div class="admin_sidebar_dropdown_title" menu="home">首頁 <i class="fas fa-angle-down"></i></div>
+            <div class="admin_sidebar_dropdown_content">
+                <a href="{{ route('admin.home_slider') }}" class="admin_sidebar_dropdown_link" sub-menu="home_slider">大圖輪播</a>
+            </div>
         </div>
         
         <div class="admin_sidebar_dropdown">
