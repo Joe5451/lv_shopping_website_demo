@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 
 // Front
+use App\Http\Controllers\Front\HomeController as HomeController;
 use App\Http\Controllers\Front\NewsController as NewsController;
 
 
@@ -26,9 +27,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('front.welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('front.home');
+// })->name('home');
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
+
 
 Route::get('/news_list', [NewsController::class, 'list'])->name('news_list');
 
