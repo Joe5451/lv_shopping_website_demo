@@ -2,15 +2,18 @@
 
 <div class="home_slider_block">
     <div class="home_slider_container">
-        <a href="#" class="home_slider_link">
-            <div class="home_slider_content"></div>
-        </a>
-        <a href="#" class="home_slider_link">
-            <div class="home_slider_content"></div>
-        </a>
-        <a href="#" class="home_slider_link">
-            <div class="home_slider_content"></div>
-        </a>
+        @foreach ($sliders as $slider)
+            <?php 
+                if ($slider->href == '') {
+                    $href = 'onclick="event.preventDefault();"';
+                } else {
+                    $href = 'href=' . $slider->href;
+                }
+            ?>
+            <a {{ $href }} class="home_slider_link">
+                <div class="home_slider_content" style="background-image:url({{ env('IMG_URL') . $slider->img_src }});"></div>
+            </a>
+        @endforeach
     </div>
     <span class="home_slider_arrow home_slider_arrow_prev"><i class="fas fa-angle-left"></i></span>
     <span class="home_slider_arrow home_slider_arrow_next"><i class="fas fa-angle-right"></i></span>

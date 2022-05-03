@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Libraries\AdminAuth;
 use App\Models\HomeSlider;
 
@@ -28,13 +29,6 @@ class HomeSliderController extends Controller
         return view('admin.home_slider', $data);
     }
 
-    public function add_form() {
-        $data = $this->head_data;
-        $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
-        
-        return view('admin.news_add_form', $data);
-    }
-
     public function add(Request $request) {
         if (!is_null($request->file('img_src')) && $request->file('img_src')->isValid()) {
             $extension = $request->img_src->extension();
@@ -48,31 +42,27 @@ class HomeSliderController extends Controller
 
         $data['img_src'] = $path;
 
-        if (is_null($data['summary'])) $data['summary'] = '';
-        if (is_null($data['content'])) $data['content'] = '';
+        // if (is_null($data['href'])) $data['href'] = ''; // 已修改空字串轉為 null 的 middleware
 
-        News::create($data);
+        HomeSlider::create($data);
 
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => '新增成功!',
-            'redirect' => route('admin.news_list')
+            'redirect' => route('admin.home_slider')
         ]);
     }
 
     public function update_form($id) {
         $data = $this->head_data;
-        $data['new'] = News::find($id);
-        $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
-        
-        return view('admin.news_update_form', $data);
+        $data['slider'] = HomeSlider::find($id);
+
+        return view('admin.home_slider_update_form', $data);
     }
 
-    public function update(Request $request) {
+    public function update($id, Request $request) {
         $data = $request->input();
-        $id = $request->input('id');
         unset($data['_token']);
-        unset($data['id']);
         unset($data['delete_img']);
         
         $img_src = $request->file('img_src');
@@ -89,13 +79,12 @@ class HomeSliderController extends Controller
             }
         }
 
-        News::where('id', $id)
-        ->update($data);
+        HomeSlider::where('id', $id)->update($data);
 
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => '更新成功!',
-            'redirect' => route('admin.news_update_form', $id)
+            'redirect' => route('admin.home_slider_update_form', $id)
         ]);
     }
 
@@ -108,17 +97,9 @@ class HomeSliderController extends Controller
         }
 
         switch ($action) {
-            case 'display_on':
-                $result = $this->batch_display_update(1, $request);
-                $action_message = '顯示';
-                break;
-            case 'display_off':
-                $result = $this->batch_display_update(0, $request);
-                $action_message = '隱藏';
-                break;
-            case 'delete':
-                $result = $this->batch_delete($request);
-                $action_message = '刪除';
+            case 'update':
+                $result = $this->batch_update($request);
+                $action_message = '批次更新';
                 break;
             default:
         }
@@ -128,45 +109,69 @@ class HomeSliderController extends Controller
         return view('admin.alert', [
             'icon_type' => 'success',
             'message' => $action_message . '成功!',
-            'redirect' => route('admin.news_list')
+            'redirect' => route('admin.home_slider')
         ]);
     }
 
-    private function batch_display_update($display, $request) {
-        $ids = $request->input('checked_ids');
+    function batch_update($request) {
+        $data = $request->input();
 
-        if (is_null($ids)) {
-            $this->alertAndRedirectList('未勾選項目!', 'warning');
-            return false;
+        $ids = $data['ids'];
+        $hrefs = $data['hrefs'];
+        $sequences = $data['sequences'];
+
+        $index = 0;
+        foreach ($ids as $id) {
+            $validator = Validator::make([
+                'sequence' => $sequences[$index],
+            ],
+            [
+                'sequence' => 'required|integer',
+            ]);
+
+            if (!$validator->fails()) {
+                HomeSlider::where('id', $id)
+                ->update([
+                    'href' => $hrefs[$index],
+                    'sequence' => $sequences[$index]
+                ]);
+            }
+            
+            $index++;
         }
-        
-        News::whereIn('id', $ids)
-        ->update([
-            'display' => $display
-        ]);
 
         return true;
     }
 
-    private function batch_delete($request) {
-        $ids = $request->input('checked_ids');
+    public function delete($id, Request $request) {
+        HomeSlider::where('id', $id)->delete();
 
-        if (is_null($ids)) {
-            $this->alertAndRedirectList('未勾選項目!', 'warning');
-            return false;
-        }
-
-        News::whereIn('id', $ids)->delete();
-
-        return true;
-    }
-
-    private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-        echo view('admin.alert', [
-            'icon_type' => $icon,
-            'message' => $message,
-            'redirect' => route('admin.news_list')
+        return view('admin.alert', [
+            'icon_type' => 'success',
+            'message' => '刪除成功!',
+            'redirect' => route('admin.home_slider')
         ]);
     }
+
+    // private function batch_delete($request) {
+    //     $ids = $request->input('checked_ids');
+
+    //     if (is_null($ids)) {
+    //         $this->alertAndRedirectList('未勾選項目!', 'warning');
+    //         return false;
+    //     }
+
+    //     News::whereIn('id', $ids)->delete();
+
+    //     return true;
+    // }
+
+    // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
+    //     echo view('admin.alert', [
+    //         'icon_type' => $icon,
+    //         'message' => $message,
+    //         'redirect' => route('admin.news_list')
+    //     ]);
+    // }
     
 }

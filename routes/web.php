@@ -45,8 +45,12 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
 
     Route::get('/home_slider', [AdminHomeSliderController::class, 'list'])->name('home_slider');
+    Route::post('/home_slider_add', [AdminHomeSliderController::class, 'add'])->name('home_slider_add');
+    Route::get('/home_slider_update_form/{id}', [AdminHomeSliderController::class, 'update_form'])->name('home_slider_update_form');
+    Route::post('/home_slider_update/{id}', [AdminHomeSliderController::class, 'update'])->name('home_slider_update');
+    Route::post('/home_slider_batch_action', [AdminHomeSliderController::class, 'batch_action'])->name('home_slider_batch_action');
+    Route::get('/home_slider_delete/{id}', [AdminHomeSliderController::class, 'delete'])->name('home_slider_delete');
 
-    
     Route::get('/news_list', [AdminNewsController::class, 'list'])->name('news_list');
     Route::get('/news_add_form', [AdminNewsController::class, 'add_form'])->name('news_add_form');
     Route::get('/news_update_form/{id}', [AdminNewsController::class, 'update_form'])->name('news_update_form');

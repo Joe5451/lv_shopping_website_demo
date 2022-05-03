@@ -90,6 +90,9 @@ class NewsController extends Controller
             }
         }
 
+        if (is_null($data['summary'])) $data['summary'] = '';
+        if (is_null($data['content'])) $data['content'] = '';
+
         News::where('id', $id)
         ->update($data);
 

@@ -15,6 +15,7 @@ class HomeSlider extends Model
     protected $fillable = [
         'id',
         'img_src',
+        'href',
         'sequence',
     ];
 }

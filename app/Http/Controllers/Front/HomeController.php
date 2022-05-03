@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Libraries\AdminAuth;
-// use App\Models\NewsCategory;
+use App\Models\HomeSlider;
 use App\Models\News;
 
 class HomeController extends Controller
@@ -24,6 +24,7 @@ class HomeController extends Controller
 
     public function home() {
         $data = $this->head_data;
+        $data['sliders'] = HomeSlider::orderBy('sequence', 'asc')->get();
         $data['news'] = News::orderBy('date', 'desc')->get();
         
         return view('front.home', $data);

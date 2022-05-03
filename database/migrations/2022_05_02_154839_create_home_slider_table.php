@@ -19,6 +19,7 @@ class CreateHomeSliderTable extends Migration
 
             $table->increments('id');
             $table->string('img_src', 500)->default('')->comment('圖片');
+            $table->string('href', 200)->default('')->comment('連結');
             $table->smallInteger('sequence')->default(0)->comment('排序');
         });
     }
