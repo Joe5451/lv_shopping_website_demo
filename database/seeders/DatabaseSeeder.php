@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ContactSeeder::class,
             MemberSeeder::class,
             HeadImgSeeder::class,
+            HomeSliderSeeder::class,
         ]);
     }
 }

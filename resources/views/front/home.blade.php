@@ -4,11 +4,7 @@
     <div class="home_slider_container">
         @foreach ($sliders as $slider)
             <?php 
-                if ($slider->href == '') {
-                    $href = 'onclick="event.preventDefault();"';
-                } else {
-                    $href = 'href=' . $slider->href;
-                }
+                $href = ($slider->href == '') ? '' : 'href=' . $slider->href;
             ?>
             <a {{ $href }} class="home_slider_link">
                 <div class="home_slider_content" style="background-image:url({{ env('IMG_URL') . $slider->img_src }});"></div>

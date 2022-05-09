@@ -10,16 +10,11 @@ use App\Models\News;
 
 class HomeController extends Controller
 {
-    // var $main_menu = 'news';
-    // var $sub_menu = 'news_list';
     var $head_data = [];
     
     public function __construct()
     {
-        $this->head_data = [
-            // 'main_menu' => $this->main_menu,
-            // 'sub_menu' => $this->sub_menu,
-        ];
+        $this->head_data = [];
     }
 
     public function home() {
