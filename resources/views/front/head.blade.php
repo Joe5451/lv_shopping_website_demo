@@ -20,24 +20,24 @@
 
     <nav class="main_header_navi">
         <div class="main_header_link_wrap">
-            <a href="{{ route('home') }}" class="main_header_link">首頁</a>
+            <a href="{{ route('home') }}" class="main_header_link" menu-id="1">首頁</a>
         </div>
         <div class="main_header_link_wrap">
-            <a href="{{ route('news_list') }}" class="main_header_link">最新消息</a>
+            <a href="{{ route('news_list') }}" class="main_header_link" menu-id="2">最新消息</a>
         </div>
         <div class="main_header_link_wrap">
-            <a href="product_list.php" class="main_header_link">購物商城</a>
+            <a href="product_list.php" class="main_header_link" menu-id="3">購物商城</a>
         </div>
         <div class="main_header_link_wrap">
-            <a href="contact.php" class="main_header_link">聯絡我們</a>
+            <a href="contact.php" class="main_header_link"  menu-id="4">聯絡我們</a>
         </div>
     </nav>
 
     <div class="main_header_btn_group">
-        <a href="member_login.php" class="main_header_btn">
+        <a href="member_login.php" class="main_header_btn" menu-id="5">
             <i class="fas fa-user"></i>
         </a>
-        <a href="cart.php" class="main_header_btn main_header_cart_btn">
+        <a href="cart.php" class="main_header_btn main_header_cart_btn" menu-id="6">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart_amount">0</span>
         </a>
@@ -51,16 +51,16 @@
 
     <nav class="main_header_nav_mobile">
         <div class="main_header_link_wrap_mobile">
-            <a href="welcome.php" class="main_header_link_mobile">首頁</a>
+            <a href="welcome.php" class="main_header_link_mobile" menu-id="1">首頁</a>
         </div>
         <div class="main_header_link_wrap_mobile">
-            <a href="news.php" class="main_header_link_mobile">最新消息</a>
+            <a href="news.php" class="main_header_link_mobile" menu-id="2">最新消息</a>
         </div>
         <div class="main_header_link_wrap_mobile">
-            <a href="product_list.php" class="main_header_link_mobile">購物商城</a>
+            <a href="product_list.php" class="main_header_link_mobile" menu-id="3">購物商城</a>
         </div>
         <div class="main_header_link_wrap_mobile">
-            <a href="contact.php" class="main_header_link_mobile">聯絡我們</a>
+            <a href="contact.php" class="main_header_link_mobile" menu-id="4">聯絡我們</a>
         </div>
     </nav>
 </header>
@@ -70,6 +70,14 @@
 <div class="header_spacing"></div>
 
 <script>
+    $(document).ready(function() {
+        var menu_id = {{ isset($menu_id) ? $menu_id : 0; }};
+
+        $('.main_header_link[menu-id=' + menu_id + ']').addClass('active');
+        $('.main_header_btn[menu-id=' + menu_id + ']').addClass('active');
+        $('.main_header_link_mobile[menu-id=' + menu_id + ']').addClass('active');
+    });
+    
     function toggleMenu() {
         $('.ham_btn').toggleClass('active');
         $('.main_header_nav_mobile').stop().slideToggle();

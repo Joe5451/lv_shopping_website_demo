@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             ContactSeeder::class,
             MemberSeeder::class,
+            HeadImgSeeder::class,
         ]);
     }
 }

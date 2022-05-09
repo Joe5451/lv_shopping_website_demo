@@ -88,7 +88,7 @@
                 <tbody class="text-slate-700">
                     @if (count($sliders) == 0)
                         <tr>
-                            <td colspan="4" class="border border-slate-300 text-center">
+                            <td colspan="5" class="border border-slate-300 text-center">
                                 無資料
                             </td>
                         </tr>
@@ -111,7 +111,7 @@
                             </td>
                             <td class="border border-slate-300">
                                 <a href="{{ route('admin.home_slider_update_form', $slider->id) }}" class="link_btn">設定</a>
-                                <a href="{{ route('admin.home_slider_delete', $slider->id) }}" onclick="confirmDelete(event);"" class="link_btn">刪除</a>
+                                <a href="{{ route('admin.home_slider_delete', $slider->id) }}" onclick="confirmDelete(event);" class="link_btn">刪除</a>
                             </td>
                         </tr>
                     @endforeach

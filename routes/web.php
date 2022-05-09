@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
+use App\Http\Controllers\Admin\HeadImgController as AdminHeadImgController;
 
 // Front
 use App\Http\Controllers\Front\HomeController as HomeController;
@@ -88,6 +89,10 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::post('/member_add', [AdminMemberController::class, 'add'])->name('member_add');
     Route::post('/member_update/{id}', [AdminMemberController::class, 'update'])->name('member_update');
     Route::post('/member_batch_action', [AdminMemberController::class, 'batch_action'])->name('member_batch_action');
+
+    Route::get('/head_img_list', [AdminHeadImgController::class, 'list'])->name('head_img_list');
+    Route::get('/head_img_update_form/{id}', [AdminHeadImgController::class, 'update_form'])->name('head_img_update_form');
+    Route::post('/head_img_update/{id}', [AdminHeadImgController::class, 'update'])->name('head_img_update');
     
 
     // Route::get('/', [ControlsPageController::class, 'home'])->name('home');

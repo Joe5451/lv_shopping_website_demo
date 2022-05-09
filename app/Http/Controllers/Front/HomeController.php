@@ -26,6 +26,7 @@ class HomeController extends Controller
         $data = $this->head_data;
         $data['sliders'] = HomeSlider::orderBy('sequence', 'asc')->get();
         $data['news'] = News::orderBy('date', 'desc')->get();
+        $data['menu_id'] = 1;
         
         return view('front.home', $data);
     }

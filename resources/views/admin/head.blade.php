@@ -93,6 +93,10 @@
         </div>
 
         <div class="admin_sidebar_link_wrap">
+            <a href="{{ route('admin.head_img_list') }}" menu="head_img" class="admin_sidebar_link">上方大圖</a>
+        </div>
+
+        <div class="admin_sidebar_link_wrap">
             <a href="@{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
         </div>
     </nav>
