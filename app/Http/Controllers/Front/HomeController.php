@@ -25,13 +25,4 @@ class HomeController extends Controller
         
         return view('front.home', $data);
     }
-    
-    private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-        echo view('admin.alert', [
-            'icon_type' => $icon,
-            'message' => $message,
-            'redirect' => route('admin.news_list')
-        ]);
-    }
-    
 }

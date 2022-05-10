@@ -6,6 +6,14 @@ button, input, select, textarea, div {
   outline: none;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: 5000s ease-in-out 0s;
+    transition-property: background-color, color;
+}
+
 input[type=checkbox] {
   cursor: pointer;
 }

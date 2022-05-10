@@ -17,7 +17,7 @@
 
             <?php
                 if ($new->img_src != '') {
-                    $img_src = env('APP_URL') . '/storage/app/'. $new->img_src;
+                    $img_src = env('IMG_URL') . $new->img_src;
                 } else {
                     $img_src = '';
                 }

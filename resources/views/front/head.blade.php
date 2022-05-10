@@ -29,7 +29,7 @@
             <a href="product_list.php" class="main_header_link" menu-id="3">購物商城</a>
         </div>
         <div class="main_header_link_wrap">
-            <a href="contact.php" class="main_header_link"  menu-id="4">聯絡我們</a>
+            <a href="{{ route('contact') }}" class="main_header_link"  menu-id="4">聯絡我們</a>
         </div>
     </nav>
 
@@ -60,7 +60,7 @@
             <a href="product_list.php" class="main_header_link_mobile" menu-id="3">購物商城</a>
         </div>
         <div class="main_header_link_wrap_mobile">
-            <a href="contact.php" class="main_header_link_mobile" menu-id="4">聯絡我們</a>
+            <a href="{{ route('contact') }}" class="main_header_link_mobile" menu-id="4">聯絡我們</a>
         </div>
     </nav>
 </header>

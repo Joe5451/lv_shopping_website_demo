@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\HeadImgController as AdminHeadImgController;
 // Front
 use App\Http\Controllers\Front\HomeController as HomeController;
 use App\Http\Controllers\Front\NewsController as NewsController;
+use App\Http\Controllers\Front\ContactController as ContactController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/news_list', [NewsController::class, 'list'])->name('news_list');
+Route::get('/contact_form', [ContactController::class, 'contact_form'])->name('contact');
 
 
 // Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');

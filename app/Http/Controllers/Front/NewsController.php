@@ -25,13 +25,4 @@ class NewsController extends Controller
         
         return view('front.news_list', $data);
     }
-
-    private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-        echo view('admin.alert', [
-            'icon_type' => $icon,
-            'message' => $message,
-            'redirect' => route('admin.news_list')
-        ]);
-    }
-    
 }
