@@ -18,7 +18,7 @@
         
         <div class="form_group">
             <label class="form_label">帳號</label>
-            <input type="text" name="account" class="form_control" value="{{ $member->account }}" required>
+            <input type="text" name="email" class="form_control" value="{{ $member->email }}" required>
         </div>
 
         <div class="form_group">

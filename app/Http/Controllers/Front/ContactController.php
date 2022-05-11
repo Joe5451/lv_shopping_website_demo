@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Libraries\AdminAuth;
 use App\Models\HeadImg;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -23,7 +24,21 @@ class ContactController extends Controller
         
         return view('front.contact', $data);
     }
-    
+
+    public function add(Request $request) {
+        $data = $request->input();
+        $data['datetime'] = date('Y-m-d H:i:s');
+        unset($data['_token']);
+
+        Contact::create($data);
+
+        return view('admin.alert', [
+            'icon_type' => 'success',
+            'message' => '發送成功!',
+            'redirect' => route('home')
+        ]);
+    }
+
     // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
     //     echo view('admin.alert', [
     //         'icon_type' => $icon,

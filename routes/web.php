@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\HeadImgController as AdminHeadImgController;
 use App\Http\Controllers\Front\HomeController as HomeController;
 use App\Http\Controllers\Front\NewsController as NewsController;
 use App\Http\Controllers\Front\ContactController as ContactController;
+use App\Http\Controllers\Front\MemberController as MemberController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -32,8 +33,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::get('/news_list', [NewsController::class, 'list'])->name('news_list');
-Route::get('/contact_form', [ContactController::class, 'contact_form'])->name('contact');
+Route::prefix('news')->get('/list', [NewsController::class, 'list'])->name('news_list');
+
+Route::get('/contact', [ContactController::class, 'contact_form'])->name('contact');
+Route::prefix('contact')->post('/add', [ContactController::class, 'add'])->name('contact_add');
+
+Route::prefix('member')->get('/login', [MemberController::class, 'login_form'])->name('member_login_form');
+Route::prefix('member')->post('/login', [MemberController::class, 'login'])->name('member_login');
+Route::prefix('member')->get('/signup', [MemberController::class, 'signup_form'])->name('member_signup_form');
+Route::prefix('member')->post('/signup', [MemberController::class, 'signup'])->name('member_signup');
 
 
 // Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');

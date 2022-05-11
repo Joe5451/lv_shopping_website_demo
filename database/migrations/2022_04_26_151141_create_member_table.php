@@ -18,7 +18,7 @@ class CreateMemberTable extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->increments('member_id');
-            $table->string('account', 100)->comment('帳號');
+            $table->string('email', 100)->comment('帳號');
             $table->string('name', 100)->comment('姓名');
             $table->string('city', 20)->comment('縣市');
             $table->string('town', 20)->comment('區域');

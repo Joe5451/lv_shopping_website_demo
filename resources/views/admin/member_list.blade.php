@@ -59,7 +59,7 @@
                                 <input type="hidden" name="ids[]" value="{{ $member->member_id }}">
                             </td>
                             <td class="border border-slate-300">{{ $member->datetime }}</td>
-                            <td class="border border-slate-300">{{ $member->account }}</td>
+                            <td class="border border-slate-300">{{ $member->email }}</td>
                             <td class="border border-slate-300">{{ $member->name }}</td>
                             <td class="border border-slate-300">
                                 @if ($member->state == '1')

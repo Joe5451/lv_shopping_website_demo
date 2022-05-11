@@ -1,7 +1,11 @@
 @include('front.head')
 
 <div class="page_head_banner">
-    <img src="img/bg_demo.png" alt="最新消息" class="page_head_banner_img">
+    <?php
+        $img_src = ($head_img->img_src != '') ? env('IMG_URL') . $head_img->img_src : 'img/bg_demo.png';
+    ?>
+    
+    <img src="{{ $img_src }}" alt="最新消息" class="page_head_banner_img">
     <div class="page_head_banner_content">
         <h1 class="page_head_banner_title">最新消息</h1>
         <h2 class="page_head_banner_subtitle">News</h2>

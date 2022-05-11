@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <base href="{{ url('') }}/">
+    
     <link rel="stylesheet" href="css/style.css?<?php echo time(); ?>" />
     <link rel="stylesheet" href="css/slick.css" />
     <link rel="stylesheet" href="css/slick-theme.css" />
     <link rel="stylesheet" href="css/fontawesome.css" />
+    
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/tailwind.js"></script>
     <script src="js/slick.min.js"></script>
+	<script src="js/sweetalert2.all.min.js"></script>
     <title>購物網站</title>
 </head>
 <body>
@@ -34,7 +39,7 @@
     </nav>
 
     <div class="main_header_btn_group">
-        <a href="member_login.php" class="main_header_btn" menu-id="5">
+        <a href="{{ route('member_login_form') }}" class="main_header_btn" menu-id="5">
             <i class="fas fa-user"></i>
         </a>
         <a href="cart.php" class="main_header_btn main_header_cart_btn" menu-id="6">

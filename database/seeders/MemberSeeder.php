@@ -16,7 +16,7 @@ class MemberSeeder extends Seeder
     {
         DB::table('member')->insert([
             [
-                'account' => 'user01@email.com',
+                'email' => 'user01@email.com',
                 'name' => '厲羽',
                 'city' => '台中市',
                 'town' => '西屯區',
@@ -27,7 +27,7 @@ class MemberSeeder extends Seeder
                 'datetime' => date('Y-m-d H:i:s', strtotime('-1day')),
             ],
             [
-                'account' => 'user02@email.com',
+                'email' => 'user02@email.com',
                 'name' => '傑洛特',
                 'city' => '台中市',
                 'town' => '北屯區',

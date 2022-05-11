@@ -5,6 +5,11 @@
     --orange: #facc15;
 }
 
+/* sweetalert 確認按鈕 */
+.swal2-styled.swal2-confirm {
+    background-color: #0069d9 !important;
+}
+
 /* ========== 通用 ========== */
 .custom_container {
     width: 1400px;

@@ -20,13 +20,13 @@
         <a href="contact.php" class="page_breadcrumb_link active">聯絡我們</a>
     </nav>
 
-    <form action="" class="form">
+    <form action="{{ route('contact_add') }}" method="post" class="form">
         <h2 class="form_title">聯絡我們</h2>
 
         <div class="form_group">
             <label class="form_label">姓名</label>
             <div class="form_control_wrap">
-                <input type="text" class="form_control" name="name" >
+                <input type="text" class="form_control" name="name" required>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
             </div>
@@ -34,7 +34,7 @@
         <div class="form_group">
             <label class="form_label">Email</label>
             <div class="form_control_wrap">
-                <input type="email" class="form_control" name="email" >
+                <input type="email" class="form_control" name="email" required>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
             </div>
@@ -42,7 +42,7 @@
         <div class="form_group">
             <label class="form_label">聯絡電話</label>
             <div class="form_control_wrap">
-                <input type="text" class="form_control" name="phone" >
+                <input type="text" class="form_control" name="phone" required>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
             </div>
@@ -50,7 +50,7 @@
         <div class="form_group">
             <label class="form_label self-start">內容</label>
             <div class="form_control_wrap">
-                <textarea name="content" class="form_textarea custom_scrollbar"></textarea>
+                <textarea name="content" class="form_textarea custom_scrollbar" required></textarea>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
             </div>

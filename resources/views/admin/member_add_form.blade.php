@@ -13,7 +13,7 @@
     <form action="{{ route('admin.member_add') }}" method="post" class="admin_form max-w-screen-sm">
         <div class="form_group">
             <label class="form_label">帳號</label>
-            <input type="text" name="account" class="form_control" required>
+            <input type="text" name="email" class="form_control" required>
         </div>
 
         <div class="form_group">
