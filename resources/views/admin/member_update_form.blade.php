@@ -55,9 +55,7 @@
             </select>
 
             <script>
-                $(document).ready(function() {
-                    $('select[name=city]').val('{{ $member->city }}');
-                });
+                $('select[name=city]').val('{{ $member->city }}');
 
                 function changeCity() {
                     let city = $("select[name=city]").val();

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Libraries\AdminAuth;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\ProductOption;

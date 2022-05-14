@@ -43,10 +43,21 @@ Route::prefix('news')->get('/list', [NewsController::class, 'list'])->name('news
 Route::get('/contact', [ContactController::class, 'contact_form'])->name('contact');
 Route::prefix('contact')->post('/add', [ContactController::class, 'add'])->name('contact_add');
 
-Route::prefix('member')->get('/login', [MemberController::class, 'login_form'])->name('member_login_form');
-Route::prefix('member')->post('/login', [MemberController::class, 'login'])->name('member_login');
-Route::prefix('member')->get('/signup', [MemberController::class, 'signup_form'])->name('member_signup_form');
-Route::prefix('member')->post('/signup', [MemberController::class, 'signup'])->name('member_signup');
+Route::prefix('member')->name('member.')->group(function () {
+    Route::get('/login', [MemberController::class, 'login_form'])->name('login_form');
+    Route::post('/login', [MemberController::class, 'login'])->name('login');
+    Route::get('/signup', [MemberController::class, 'signup_form'])->name('signup_form');
+    Route::post('/signup', [MemberController::class, 'signup'])->name('signup');
+});
+
+Route::get('/test', [MemberController::class, 'test'])->name('test');
+
+
+Route::prefix('member')->name('member.')->middleware(['member.auth'])->group(function () {
+    Route::get('/update_form', [MemberController::class, 'update_form'])->name('update_form');
+
+});
+
 
 // Admin
 Route::prefix('admin')->name('admin.')->group(function() {

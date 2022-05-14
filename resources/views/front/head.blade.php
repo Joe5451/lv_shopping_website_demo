@@ -39,7 +39,7 @@
     </nav>
 
     <div class="main_header_btn_group">
-        <a href="{{ route('member_login_form') }}" class="main_header_btn" menu-id="5">
+        <a href="{{ route('member.login_form') }}" class="main_header_btn" menu-id="5">
             <i class="fas fa-user"></i>
         </a>
         <a href="cart.php" class="main_header_btn main_header_cart_btn" menu-id="6">

@@ -16,10 +16,10 @@
     <nav class="page_breadcrumb">
         <a href="{{ route('home') }}" class="page_breadcrumb_link">首頁</a>
         <span class="page_breadcrumb_separator">〉</span>
-        <a href="{{ route('member_login_form') }}" class="page_breadcrumb_link active">會員登入</a>
+        <a href="{{ route('member.login_form') }}" class="page_breadcrumb_link active">會員登入</a>
     </nav>
 
-    <form action="{{ route('member_login') }}" method="post" class="form form_sm" id="login_form">
+    <form action="{{ route('member.login') }}" method="post" class="form form_sm" id="login_form">
         <h2 class="form_title">會員登入</h2>
 
         <div class="form_group">
@@ -41,7 +41,7 @@
 
         <div class="member_signup_notify">
             還不是會員嗎?
-            <a href="{{ route('member_signup_form') }}" class="member_signup_link">立即註冊</a>
+            <a href="{{ route('member.signup_form') }}" class="member_signup_link">立即註冊</a>
         </div>
 
         <div class="flex justify-center align-center my-8">

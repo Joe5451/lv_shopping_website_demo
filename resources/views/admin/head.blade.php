@@ -97,7 +97,7 @@
         </div>
 
         <div class="admin_sidebar_link_wrap">
-            <a href="@{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
+            <a href="{{ route('admin.logout') }}" class="admin_sidebar_link">登出</a>
         </div>
     </nav>
 

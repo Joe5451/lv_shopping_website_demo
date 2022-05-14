@@ -14,12 +14,12 @@
 
 <section class="page_section container mx-auto">
     <nav class="page_breadcrumb">
-        <a href="welcome.php" class="page_breadcrumb_link">首頁</a>
+        <a href="{{ route('home') }}" class="page_breadcrumb_link">首頁</a>
         <span class="page_breadcrumb_separator">〉</span>
-        <a href="member_signup.php" class="page_breadcrumb_link active">會員註冊</a>
+        <a href="{{ route('member.signup_form') }}" class="page_breadcrumb_link active">會員註冊</a>
     </nav>
 
-    <form action="{{ route('member_signup') }}" method="post" class="form" id="signup_form">
+    <form action="{{ route('member.signup') }}" method="post" class="form" id="signup_form">
         <h2 class="form_title">會員註冊</h2>
 
         <div class="form_group">

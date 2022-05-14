@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Libraries\AdminAuth;
 use App\Models\NewsCategory;
 use App\Models\News;
 
