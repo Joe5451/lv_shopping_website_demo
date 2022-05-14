@@ -47,7 +47,7 @@ class MemberController extends Controller
             return view('front.alert', [
                 'icon_type' => 'error',
                 'message' => '帳號或密碼錯誤!',
-                'redirect' => MemberAuth::Home
+                'redirect' => route('member.login_form')
             ]);
         }
     }
@@ -93,6 +93,25 @@ class MemberController extends Controller
         $data['town_options'] = $this->getTown($member->city);
 
         return view('front.member_update_form', $data);
+    }
+
+    public function update(Request $request) {
+        $memberId = Crypt::decryptString(session('memberId'));
+
+        $data = $request->input();
+        unset($data['_token']);
+        unset($data['email']);
+        
+        if ($data['password'] != '') $data['password'] = md5($data['password']);
+        else unset($data['password']);
+        
+        Member::where('member_id', $memberId)->update($data);
+
+        return view('front.alert', [
+            'icon_type' => 'success',
+            'message' => '更新成功!',
+            'redirect' => route('member.update_form')
+        ]);
     }
 
     private function getTown($city)
@@ -176,6 +195,11 @@ class MemberController extends Controller
         }
 
         return $town_options_html;
+    }
+
+    public function logout() {
+        MemberAuth::logOut();
+        return redirect(MemberAuth::HOME);
     }
 
     // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {

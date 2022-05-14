@@ -1,7 +1,11 @@
-<?php include('php/head.php'); ?>
+@include('front.head')
 
 <div class="page_head_banner">
-    <img src="img/img2.png" alt="購物商城" class="page_head_banner_img">
+    <?php
+        $img_src = ($head_img->img_src != '') ? env('IMG_URL') . $head_img->img_src : 'img/bg_demo.png';
+    ?>
+    
+    <img src="{{ $img_src }}" alt="購物商城" class="page_head_banner_img">
     <div class="page_head_banner_content">
         <h1 class="page_head_banner_title">購物商城</h1>
         <h2 class="page_head_banner_subtitle">Shopping</h2>
@@ -10,7 +14,7 @@
 
 <section class="page_section container mx-auto">
     <nav class="page_breadcrumb">
-        <a href="welcome.php" class="page_breadcrumb_link">首頁</a>
+        <a href="{{ route('home') }}" class="page_breadcrumb_link">首頁</a>
         <span class="page_breadcrumb_separator">〉</span>
         <a href="product_list.php" class="page_breadcrumb_link active">購物商城</a>
     </nav>
@@ -23,10 +27,10 @@
             </button>
             <div class="product_category_container">
                 <div class="product_category">
-                    <a href="#" class="product_category_title">
+                    <div class="product_category_title">
                         天材地寶
                         <i class="fas fa-plus"></i>
-                    </a>
+                    </div>
                     <div class="product_category_content">
                         <a href="#" class="product_category_link">補氣養生</a>
                         <a href="#" class="product_category_link">強健體魄</a>
@@ -34,10 +38,10 @@
                     </div>
                 </div>
                 <div class="product_category">
-                    <a href="#" class="product_category_title">
+                    <div class="product_category_title">
                         天材地寶
                         <i class="fas fa-plus"></i>
-                    </a>
+                    </div>
                     <div class="product_category_content">
                         <a href="#" class="product_category_link">補氣養生</a>
                         <a href="#" class="product_category_link">強健體魄</a>
@@ -45,10 +49,10 @@
                     </div>
                 </div>
                 <div class="product_category">
-                    <a href="#" class="product_category_title">
+                    <div class="product_category_title">
                         天材地寶
                         <i class="fas fa-plus"></i>
-                    </a>
+                    </div>
                     <div class="product_category_content">
                         <a href="#" class="product_category_link">補氣養生</a>
                         <a href="#" class="product_category_link">強健體魄</a>
@@ -58,10 +62,9 @@
             </div>
 
             <script>
-                $('.product_category_title i').click(function(e) {
-                    e.preventDefault();
-                    $(this).toggleClass('fa-plus fa-minus');
-                    $(this).parent('.product_category_title').next('.product_category_content').stop().slideToggle();
+                $('.product_category_title').click(function() {
+                    $(this).find('i').toggleClass('fa-plus fa-minus');
+                    $(this).next('.product_category_content').stop().slideToggle();
                 });
 
                 $('.product_sidebar_toggle_btn_mobile').click(function() {
@@ -151,4 +154,4 @@
 
 </section>
 
-<?php include('php/foot.php'); ?>
+@include('front.foot')

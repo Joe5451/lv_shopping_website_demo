@@ -16,6 +16,7 @@ use App\Http\Controllers\Front\HomeController as HomeController;
 use App\Http\Controllers\Front\NewsController as NewsController;
 use App\Http\Controllers\Front\ContactController as ContactController;
 use App\Http\Controllers\Front\MemberController as MemberController;
+use App\Http\Controllers\Front\ProductController as ProductController;
 
 // Common
 use App\Http\Controllers\AddressController as AddressController;
@@ -48,16 +49,20 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::post('/login', [MemberController::class, 'login'])->name('login');
     Route::get('/signup', [MemberController::class, 'signup_form'])->name('signup_form');
     Route::post('/signup', [MemberController::class, 'signup'])->name('signup');
+    Route::get('/logout', [MemberController::class, 'logout'])->name('logout');
 });
 
-Route::get('/test', [MemberController::class, 'test'])->name('test');
-
-
+// 會員中心
 Route::prefix('member')->name('member.')->middleware(['member.auth'])->group(function () {
     Route::get('/update_form', [MemberController::class, 'update_form'])->name('update_form');
-
+    Route::post('/update', [MemberController::class, 'update'])->name('update');
 });
 
+// 購物商城
+Route::prefix('product')->name('product.')->group(function () {
+    Route::get('/list', [ProductController::class, 'list'])->name('list');
+    Route::get('/content/{id}', [ProductController::class, 'content'])->name('content');
+});
 
 // Admin
 Route::prefix('admin')->name('admin.')->group(function() {
@@ -98,6 +103,8 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/product_category_list', [AdminProductCategoryController::class, 'list'])->name('product_category_list');
     Route::get('/product_category_add_form', [AdminProductCategoryController::class, 'add_form'])->name('product_category_add_form');
     Route::post('/product_category_add', [AdminProductCategoryController::class, 'add'])->name('product_category_add');
+    Route::get('/product_category_update_form/{id}', [AdminProductCategoryController::class, 'update_form'])->name('product_category_update_form');
+    Route::post('/product_category_update/{id}', [AdminProductCategoryController::class, 'update'])->name('product_category_update');
     Route::post('/product_category_batch_action', [AdminProductCategoryController::class, 'batch_action'])->name('product_category_batch_action');
     Route::get('/product_category_delete/{id}', [AdminProductCategoryController::class, 'delete'])->name('product_category_delete');
 

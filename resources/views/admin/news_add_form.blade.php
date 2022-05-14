@@ -14,7 +14,7 @@
     <form action="{{ route('admin.news_add') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
         <div class="form_group">
             <label class="form_label">封面圖</label>
-            <input type="file" name="img_src" class="dropify" data-max-file-size="1M" />
+            <input type="file" name="img_src" class="dropify" data-max-file-size="5M" />
             
             <script>
                 $('.dropify').dropify({

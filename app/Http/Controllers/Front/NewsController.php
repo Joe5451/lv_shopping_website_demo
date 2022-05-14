@@ -10,19 +10,20 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
-    var $head_data = [];
+    var $common_data = [];
     
     public function __construct()
     {
-        $this->head_data = [];
+        $this->common_data = [
+            'menu_id' => 2,
+            'head_img' => HeadImg::find(1)
+        ];
     }
     
     public function list(Request $request) {
-        $data = $this->head_data;
-        $data['head_img'] = HeadImg::find(1);
+        $data = $this->common_data;
         $data['news'] = News::orderBy('date', 'desc')->get();
         $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
-        $data['menu_id'] = 2;
         
         return view('front.news_list', $data);
     }

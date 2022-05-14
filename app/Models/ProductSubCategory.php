@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductSubCategory extends Model
 {
     use HasFactory;
 
-    protected $table = 'products';
+    protected $table = 'product_subcategory';
+    protected $primaryKey = 'product_subcategory_id';
     public $timestamps = false; // 不存在 created_at 和 updated_at
     
     const DISABLED = 'disabled';
@@ -21,18 +22,10 @@ class Product extends Model
     ];
 
     protected $fillable = [
-        'id',
-        'product_name',
-        'product_category_id',
-        'img_src',
-        'price',
-        'sequence',
-        'summary',
-        'content',
+        'product_subcategory_id',
+        'category_id',
+        'subcategory_name',
         'display',
+        'sequence',
     ];
-
-    public function product_category() {
-        return $this->hasOne('App\Models\ProductCategory', 'product_category_id', 'product_category_id');
-    }
 }

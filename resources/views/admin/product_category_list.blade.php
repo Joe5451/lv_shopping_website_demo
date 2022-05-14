@@ -50,9 +50,10 @@
                             </label>
                         </th>
                         <th class="border border-slate-300">分類名稱</th>
+                        <th class="border border-slate-300">子分類名稱</th>
                         <th class="border border-slate-300" width="80">順序</th>
                         <th class="border border-slate-300" width="90">顯示/隱藏</th>
-                        <th class="border border-slate-300" width="80">動作</th>
+                        <th class="border border-slate-300" width="100">動作</th>
                     </tr>
                     <script>
                         $('#all_items_checked').click(function() {
@@ -79,6 +80,20 @@
                                 <input type="text" class="form_control_secondary" name="category_names[]" value="{{ $product_category->category_name }}">
                             </td>
                             <td class="border border-slate-300 text-left">
+                                @if (count($product_category->product_subcategories) == 0)
+                                    無
+                                @endif
+
+                                @foreach ($product_category->product_subcategories as $subcategory)
+                                    {{ $subcategory->subcategory_name }}
+                                    @if ($subcategory->display == '1')
+                                        (顯示)<br>
+                                    @else
+                                        (隱藏)<br>
+                                    @endif
+                                @endforeach
+                            </td>
+                            <td class="border border-slate-300 text-left">
                                 <input type="number" class="form_control_secondary text-right" name="sequences[]" value="{{ $product_category->sequence }}">
                             </td>
                             <td class="border border-slate-300">
@@ -89,6 +104,7 @@
                                 @endif
                             </td>
                             <td class="border border-slate-300">
+                                <a href="{{ route('admin.product_category_update_form', $product_category->product_category_id) }}" class="link_btn">設定</a>
                                 <a href="{{ route('admin.product_category_delete', $product_category->product_category_id) }}" onclick="confirmDelete(event);" class="link_btn">刪除</a>
                             </td>
                         </tr>

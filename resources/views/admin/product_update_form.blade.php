@@ -11,7 +11,31 @@
         <a href="{{ route('admin.product_add_form') }}" class="admin_sub_nav_link">新增</a>
     </nav>
 
-    <form action="{{ route('admin.product_update', $product->id) }}" method="post" class="admin_form max-w-screen-sm">
+    <form action="{{ route('admin.product_update', $product->id) }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
+        <div class="form_group">
+            <label class="form_label">封面圖</label>
+
+            <?php $img_src = ($product->img_src != '') ? env('IMG_URL') . $product->img_src : ''; ?>
+            
+            <input type="file" name="img_src" class="dropify" data-default-file="{{ $img_src }}" data-max-file-size="1M" />
+            <input type="hidden" name="delete_img" value="false">
+
+            <script>
+                let drEvent = $('.dropify').dropify({
+                    messages: {
+                        'default': '將文件拖放到此處或單擊',
+                        'replace': '拖放或點擊替換',
+                        'remove':  '刪除',
+                        'error':   '糟糕，發生了錯誤'
+                    }
+                });
+
+                drEvent.on('dropify.afterClear', function(event, element){
+                    $('input[name=delete_img]').val('true');
+                });
+            </script>
+        </div>
+        
         <div class="form_group">
             <label class="form_label">商品名稱</label>
             <input type="text" name="product_name" class="form_control" value="{{ $product->product_name }}" required>
@@ -62,7 +86,6 @@
             </div>
 
             <div id="product_specification_container">
-
                 @foreach ($product_options as $product_option)
                     <div class="specification_wrap flex flex-wrap border-b border-slate-300 mb-3">
                         <input type="hidden" name="option_ids[]" value="{{ $product_option->option_id }}">
@@ -79,7 +102,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
 
             <script>

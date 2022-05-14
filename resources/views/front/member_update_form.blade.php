@@ -30,6 +30,7 @@
             <div class="member_sidebar_content w-full md:w-72 max-w-full">
                 <a href="{{ route('member.update_form') }}" class="member_sidebar_link active">會員資料</a>
                 <a href="#" class="member_sidebar_link">訂單記錄</a>
+                <a href="{{ route('member.logout') }}" class="member_sidebar_link">會員登出</a>
             </div>
 
             <script>
@@ -40,7 +41,7 @@
             </script>
         </div>
         <div class="w-full md:w-3/4 px-0 md:px-4">
-            <form action="" method="post" class="form">
+            <form action="{{ route('member.update') }}" method="post" class="form" id="update_form">
                 <h2 class="form_title">會員資料</h2>
         
                 <div class="form_group">
@@ -157,21 +158,62 @@
                 <div class="form_group">
                     <label class="form_label">確認密碼</label>
                     <div class="form_control_wrap">
-                        <input type="password" class="form_control" >
+                        <input type="password" class="form_control" id="confirm_password">
                         <span class="form_control_border_top_left"></span>
                         <span class="form_control_border_bottom_right"></span>
                     </div>
                     <div class="form_control_notify">請再次輸入密碼</div>
                 </div>
-        
+
                 <div class="form_submit_wrap">
-                    <input type="submit" value="變更" id="form_submit">
+                    @csrf
+                    <input type="button" onclick="checkForm()" value="變更" id="form_submit">
                 </div>
             </form>
+
+            <script>
+                function checkForm() {
+                    
+                    if ($('input[name=name]').val() == '')
+                        alertAndScrollTop($('input[name=name]'), '請輸入姓名!');
+                    else if ($('select[name=city]').val() == '')
+                        alertAndScrollTop($('select[name=city]'), '請選擇縣市!');
+                    else if ($('select[name=town]').val() == '')
+                        alertAndScrollTop($('select[name=town]'), '請選擇鄉鎮市區!');
+                    else if ($('input[name=address]').val() == '')
+                        alertAndScrollTop($('input[name=address]'), '請輸入地址!');
+                    else if ($('input[name=password]').val() != $('#confirm_password').val())
+                        alertAndScrollTop($('#confirm_password'), '確認密碼不一致!');
+                    else
+                        $('#update_form').submit();
+                }
+
+                function alertAndScrollTop(element, title) {
+                    Swal.fire({
+                        icon: "info",
+                        title,
+                        timer: 0,
+                        willClose: () => {
+                            var contentTop = element.offset().top - 120;
+                            $([document.documentElement, document.body]).animate({
+                                scrollTop: contentTop
+                            }, 800, 'swing', function() {
+                                element.focus();
+                            });
+                        },
+                    });
+                }
+
+                function alertInfo(title) {
+                    Swal.fire({
+                        icon: "info",
+                        title,
+                        timer: 0,
+                    });
+                }
+            </script>
         </div>
     </div>
-
-
 </section>
 
 @include('front.foot')

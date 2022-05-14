@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 
 class ProductCategoryController extends Controller
 {
@@ -36,9 +38,29 @@ class ProductCategoryController extends Controller
 
     public function add(Request $request) {
         $data = $request->input();
+        $subcategory_names = $request->input('subcategory_names');
+        $subcategory_displays = $request->input('subcategory_displays');
+        $subcategory_sequences = $request->input('subcategory_sequences');
         unset($data['_token']);
+        unset($data['subcategory_names']);
+        unset($data['subcategory_displays']);
+        unset($data['subcategory_sequences']);
 
-        ProductCategory::create($data);
+        $product_category = ProductCategory::create($data);
+
+        $index = 0;
+        if (!is_null($subcategory_names)) {
+            foreach ($subcategory_names as $subcategory_name) {
+                ProductSubCategory::create([
+                    'category_id' => $product_category->product_category_id,
+                    'subcategory_name' => $subcategory_name,
+                    'display' => $subcategory_displays[$index],
+                    'sequence' => $subcategory_sequences[$index]
+                ]);
+    
+                $index++;
+            }
+        }
 
         return view('admin.alert', [
             'icon_type' => 'success',
@@ -47,8 +69,64 @@ class ProductCategoryController extends Controller
         ]);
     }
 
+    public function update_form($id) {
+        $data = $this->head_data;
+        $data['category'] = ProductCategory::find($id);
+        
+        return view('admin.product_category_update_form', $data);
+    }
+
+    public function update($id, Request $request) {
+        $data = $request->input();
+        $subcategory_ids = $request->input('subcategory_ids');
+        $subcategory_names = $request->input('subcategory_names');
+        $subcategory_displays = $request->input('subcategory_displays');
+        $subcategory_sequences = $request->input('subcategory_sequences');
+        unset($data['_token']);
+        unset($data['subcategory_ids']);
+        unset($data['subcategory_names']);
+        unset($data['subcategory_displays']);
+        unset($data['subcategory_sequences']);
+
+        ProductCategory::where('product_category_id', $id)->update($data);
+
+        $index = 0;
+        if (!is_null($subcategory_ids)) {
+            DB::table('product_subcategory')->whereNotIn('product_subcategory_id', $subcategory_ids)->delete();
+
+            foreach ($subcategory_ids as $subcategory_id) {
+                if ($subcategory_id == 'new') {
+                    ProductSubcategory::create([
+                        'category_id' => $id,
+                        'subcategory_name' => $subcategory_names[$index],
+                        'display' => $subcategory_displays[$index],
+                        'sequence' => $subcategory_sequences[$index]
+                    ]);
+                } else {
+                    ProductSubcategory::where('product_subcategory_id', $subcategory_id)
+                    ->update([
+                        'subcategory_name' => $subcategory_names[$index],
+                        'display' => $subcategory_displays[$index],
+                        'sequence' => $subcategory_sequences[$index]
+                    ]);
+                }
+
+                $index++;
+            }
+        } else {
+            DB::table('product_subcategory')->where('category_id', $id)->delete();
+        }
+
+        return view('admin.alert', [
+            'icon_type' => 'success',
+            'message' => '更新成功!',
+            'redirect' => route('admin.product_category_update_form', $id)
+        ]);
+    }
+
     public function delete($id, Request $request) {
         ProductCategory::where('product_category_id', $id)->delete();
+        ProductSubCategory::where('category_id', $id)->delete();
         return $this->alertAndRedirectList('刪除成功', 'success');
     }
 
@@ -146,6 +224,7 @@ class ProductCategoryController extends Controller
         }
 
         ProductCategory::whereIn('product_category_id', $ids)->delete();
+        ProductSubCategory::whereIn('category_id', $ids)->delete();
 
         return true;
     }

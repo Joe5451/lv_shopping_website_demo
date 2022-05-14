@@ -31,7 +31,7 @@
             <a href="{{ route('news_list') }}" class="main_header_link" menu-id="2">最新消息</a>
         </div>
         <div class="main_header_link_wrap">
-            <a href="product_list.php" class="main_header_link" menu-id="3">購物商城</a>
+            <a href="{{ route('product.list') }}" class="main_header_link" menu-id="3">購物商城</a>
         </div>
         <div class="main_header_link_wrap">
             <a href="{{ route('contact') }}" class="main_header_link"  menu-id="4">聯絡我們</a>

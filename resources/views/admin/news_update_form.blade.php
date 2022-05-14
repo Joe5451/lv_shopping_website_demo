@@ -15,13 +15,7 @@
         <div class="form_group">
             <label class="form_label">封面圖</label>
 
-            <?php
-                if ($new->img_src != '') {
-                    $img_src = env('IMG_URL') . $new->img_src;
-                } else {
-                    $img_src = '';
-                }
-            ?>
+            <?php $img_src = ($new->img_src != '') ? env('IMG_URL') . $new->img_src : ''; ?>
             
             <input type="file" name="img_src" class="dropify" data-default-file="{{ $img_src }}" data-max-file-size="1M" />
             <input type="hidden" name="delete_img" value="false">

@@ -28,6 +28,12 @@ class ProductCategory extends Model
         'sequence',
     ];
 
+    public function product_subcategories()
+    {
+        // category_id 外鍵, product_category_id 本地鍵
+        return $this->hasMany(ProductSubCategory::class, 'category_id', 'product_category_id')->orderBy('sequence', 'asc');
+    }
+
     // public function prices()
     // {
     //     if (!$this->_prices){

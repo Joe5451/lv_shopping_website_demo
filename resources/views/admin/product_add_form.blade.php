@@ -13,6 +13,22 @@
 
     <form action="{{ route('admin.product_add') }}" method="post" enctype="multipart/form-data" class="admin_form max-w-screen-sm">
         <div class="form_group">
+            <label class="form_label">封面圖</label>
+            <input type="file" name="img_src" class="dropify" data-max-file-size="5M" />
+            
+            <script>
+                $('.dropify').dropify({
+                    messages: {
+                        'default': '將文件拖放到此處或單擊',
+                        'replace': '拖放或點擊替換',
+                        'remove':  '刪除',
+                        'error':   '糟糕，發生了錯誤'
+                    }
+                });
+            </script>
+        </div>
+        
+        <div class="form_group">
             <label class="form_label">商品名稱</label>
             <input type="text" name="product_name" class="form_control" required>
         </div>
@@ -61,11 +77,11 @@
                         <div class="specification_wrap flex flex-wrap border-b border-slate-300 mb-3">
                             <div class="my-2 flex items-center">
                                 <label class="shrink-0 text-slate-500">名稱：</label>
-                                <input type="text" name="option_names[]" class="w-36 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
+                                <input type="text" name="option_names[]" class="w-36 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4" required>
                             </div>
                             <div class="my-2 flex items-center">
                                 <label class="shrink-0 text-slate-500">順序：</label>
-                                <input type="number" name="option_sequences[]" value="0" class="w-16 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4">
+                                <input type="number" name="option_sequences[]" value="0" class="w-16 border border-slate-400 py-1 px-2 focus:border-cyan-400 mr-4" required>
                                 <button type="button" class="admin_minus_btn" onclick="deleteSpecification(this);">
                                     <i class="fas fa-minus-circle"></i>
                                 </button>

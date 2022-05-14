@@ -136,8 +136,10 @@
     transition: all 0.4s ease-in-out;
 }
 
-.main_header_btn:hover {
-    color: #0369a1;
+.main_header_btn:hover,
+.main_header_btn.active {
+    color: var(--cyan);
+    /* color: #0369a1; */
 }
 
 .main_header_cart_btn {

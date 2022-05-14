@@ -38,12 +38,13 @@ class ProductController extends Controller
     }
 
     public function add(Request $request) {
-        // if (!is_null($request->file('img_src')) && $request->file('img_src')->isValid()) {
-        //     $extension = $request->img_src->extension();
-        //     $path = $request->img_src->store('images');
-        // } else {
-        //     $path = '';
-        // }
+        if (!is_null($request->file('img_src')) && $request->file('img_src')->isValid()) {
+            $extension = $request->img_src->extension();
+            $path = $request->img_src->store('images');
+        } else {
+            $path = '';
+        }
+
         
         $data = $request->input();
         $option_names = $request->input('option_names');
@@ -52,22 +53,24 @@ class ProductController extends Controller
         unset($data['option_names']);
         unset($data['option_sequences']);
 
-        // $data['img_src'] = $path;
+        $data['img_src'] = $path;
 
-        if (is_null($data['summary'])) $data['summary'] = '';
-        if (is_null($data['content'])) $data['content'] = '';
+        // if (is_null($data['summary'])) $data['summary'] = '';
+        // if (is_null($data['content'])) $data['content'] = '';
 
         $product = Product::create($data);
 
         $option_index = 0;
-        foreach ($option_names as $option_name) {
-            ProductOption::create([
-                'product_id' => $product->id,
-                'option_name' => $option_name,
-                'sequence' => $option_sequences[$option_index]
-            ]);
-
-            $option_index++;
+        if (!is_null($option_names)) {
+            foreach ($option_names as $option_name) {
+                ProductOption::create([
+                    'product_id' => $product->id,
+                    'option_name' => $option_name,
+                    'sequence' => $option_sequences[$option_index]
+                ]);
+    
+                $option_index++;
+            }
         }
 
         return view('admin.alert', [
@@ -95,44 +98,47 @@ class ProductController extends Controller
         unset($data['option_ids']);
         unset($data['option_names']);
         unset($data['option_sequences']);
-        // unset($data['delete_img']);
+        unset($data['delete_img']);
         
-        // $img_src = $request->file('img_src');
-        // $delete_img = $request->input('delete_img');
+        $img_src = $request->file('img_src');
+        $delete_img = $request->input('delete_img');
 
-        // if (is_null($img_src) && $delete_img == 'true') {
-        //     $data['img_src'] = '';
-        // } else if (!is_null($img_src)) {
-        //     if ($request->file('img_src')->isValid()) {
-        //         $extension = $request->img_src->extension();
-        //         $path = $request->img_src->store('images');
+        if (is_null($img_src) && $delete_img == 'true') {
+            $data['img_src'] = '';
+        } else if (!is_null($img_src)) {
+            if ($request->file('img_src')->isValid()) {
+                $extension = $request->img_src->extension();
+                $path = $request->img_src->store('images');
 
-        //         $data['img_src'] = $path;
-        //     }
-        // }
+                $data['img_src'] = $path;
+            }
+        }
 
-        Product::where('id', $id)
-        ->update($data);
-
-        DB::table('product_option')->whereNotIn('option_id', $option_ids)->delete();
+        Product::where('id', $id)->update($data);
 
         $option_index = 0;
-        foreach ($option_ids as $option_id) {
-            if ($option_id == 'new') {
-                ProductOption::create([
-                    'product_id' => $id,
-                    'option_name' => $option_names[$option_index],
-                    'sequence' => $option_sequences[$option_index]
-                ]);
-            } else {
-                ProductOption::where('option_id', $option_id)
-                ->update([
-                    'option_name' => $option_names[$option_index],
-                    'sequence' => $option_sequences[$option_index]
-                ]);
-            }
+        if (!is_null($option_ids)) {
+            DB::table('product_option')->whereNotIn('option_id', $option_ids)->delete();
 
-            $option_index++;
+            foreach ($option_ids as $option_id) {
+                if ($option_id == 'new') {
+                    ProductOption::create([
+                        'product_id' => $id,
+                        'option_name' => $option_names[$option_index],
+                        'sequence' => $option_sequences[$option_index]
+                    ]);
+                } else {
+                    ProductOption::where('option_id', $option_id)
+                    ->update([
+                        'option_name' => $option_names[$option_index],
+                        'sequence' => $option_sequences[$option_index]
+                    ]);
+                }
+
+                $option_index++;
+            }
+        } else {
+            DB::table('product_option')->where('product_id', $id)->delete();
         }
 
         return view('admin.alert', [

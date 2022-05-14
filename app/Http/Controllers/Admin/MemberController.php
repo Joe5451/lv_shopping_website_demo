@@ -149,15 +149,16 @@ class MemberController extends Controller
 
     public function update($id, Request $request) {
         $data = $request->input();
+        unset($data['email']);
 
-        $existMember = Member::where('email', $data['email'])
-        ->where('member_id', '!=', $id)
-        ->take(1)->get();
+        // $existMember = Member::where('email', $data['email'])
+        // ->where('member_id', '!=', $id)
+        // ->take(1)->get();
 
-        if (count($existMember) > 0) {
-            $this->alertAndHistoryBack('帳號已存在，請重新設置!', 'warning');
-            return false;
-        }
+        // if (count($existMember) > 0) {
+        //     $this->alertAndHistoryBack('帳號已存在，請重新設置!', 'warning');
+        //     return false;
+        // }
         
         if ($data['password'] != '') $data['password'] = md5($data['password']);
         else unset($data['password']);

@@ -638,6 +638,7 @@
     font-size: 1.25rem;
     color: #fafafa;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .product_category_title i {
