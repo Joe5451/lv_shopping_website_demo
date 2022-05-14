@@ -1,6 +1,6 @@
 <?php
 
-// admin
+// Admin
 use App\Http\Controllers\Admin\LoginController as AdminLoginController;
 use App\Http\Controllers\Admin\HomeSliderController as AdminHomeSliderController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -17,6 +17,8 @@ use App\Http\Controllers\Front\NewsController as NewsController;
 use App\Http\Controllers\Front\ContactController as ContactController;
 use App\Http\Controllers\Front\MemberController as MemberController;
 
+// Common
+use App\Http\Controllers\AddressController as AddressController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,7 +33,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Common
+Route::prefix('address')->post('/getTown', [AddressController::class, 'getTown'])->name('get_town');
 
+// Front
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::prefix('news')->get('/list', [NewsController::class, 'list'])->name('news_list');
 
@@ -43,10 +48,7 @@ Route::prefix('member')->post('/login', [MemberController::class, 'login'])->nam
 Route::prefix('member')->get('/signup', [MemberController::class, 'signup_form'])->name('member_signup_form');
 Route::prefix('member')->post('/signup', [MemberController::class, 'signup'])->name('member_signup');
 
-
-// Route::get('admin/login', [AdminLoginController::class, 'loginPage'])->name('admin.login');
-// Route::post('admin/login', [AdminLoginController::class, 'login']);
-
+// Admin
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/login', [AdminLoginController::class, 'loginPage'])->name('login');
     Route::post('/login', [AdminLoginController::class, 'login']);

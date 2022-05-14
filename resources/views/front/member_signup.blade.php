@@ -44,21 +44,65 @@
         <div class="form_group">
             <label class="form_label">縣市</label>
             <div class="form_control_wrap">
-                <select name="city" class="form_select" required>
+                <select name="city" class="form_select" onchange="changeCity()" required>
                     <option value="">請選擇縣市</option>
-                    <option value="台中市">台中市</option>
+                    <option value="基隆市">基隆市</option>
+                    <option value="台北市">台北市</option>
+                    <option value="新北市">新北市</option>
+                    <option value="桃園市">桃園市</option>
+                    <option value="新竹市">新竹市</option>
+                    <option value="新竹縣">新竹縣</option>
+                    <option value="宜蘭縣">宜蘭縣</option>
+                    <option value="苗栗縣">苗栗縣</option>
+                    <option value="台中市">台中市</option>	
+                    <option value="彰化縣">彰化縣</option>
+                    <option value="南投縣">南投縣</option>
+                    <option value="雲林縣">雲林縣</option>
+                    <option value="嘉義市">嘉義市</option>
+                    <option value="嘉義縣">嘉義縣</option>		
+                    <option value="台南市">台南市</option>
+                    <option value="高雄市">高雄市</option>	
+                    <option value="屏東縣">屏東縣</option>
+                    <option value="澎湖縣">澎湖縣</option>
+                    <option value="花蓮縣">花蓮縣</option>
+                    <option value="台東縣">台東縣</option>
+                    <option value="連江縣">連江縣</option>
+                    <option value="金門縣">金門縣</option>
                 </select>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
             </div>
         </div>
 
+        <script>
+            function changeCity() {
+                let city = $("select[name=city]").val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('get_town') }}',
+                    data: {
+                        city,
+                        '_token': '{{ csrf_token() }}',
+                    },
+                    dataType: 'html',
+                    success: function (res) {
+                        $("select[name=town]").html(res);
+                    },
+                    error: function (err) {
+                        if (err.status) {
+                            alertInfo('操作逾時，請重新整理頁面!');
+                        }
+                    }
+                });
+            }
+        </script>
+
         <div class="form_group">
             <label class="form_label">區域</label>
             <div class="form_control_wrap">
                 <select name="town" class="form_select" required>
                     <option value="">請選擇鄉鎮市區</option>
-                    <option value="西屯區">西屯區</option>
                 </select>
                 <span class="form_control_border_top_left"></span>
                 <span class="form_control_border_bottom_right"></span>
@@ -126,7 +170,7 @@
         function alertAndScrollTop(element, title) {
             Swal.fire({
                 icon: "info",
-                title: title,
+                title,
                 timer: 0,
                 willClose: () => {
                     var contentTop = element.offset().top - 120;
@@ -136,6 +180,14 @@
                         element.focus();
                     });
                 },
+            });
+        }
+
+        function alertInfo(title) {
+            Swal.fire({
+                icon: "info",
+                title,
+                timer: 0,
             });
         }
     </script>

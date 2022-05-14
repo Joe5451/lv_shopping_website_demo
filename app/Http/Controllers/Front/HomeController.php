@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Libraries\AdminAuth;
 use App\Models\HomeSlider;
 use App\Models\News;
 
