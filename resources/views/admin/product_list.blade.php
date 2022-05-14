@@ -26,6 +26,7 @@
                             </label>
                         </th>
                         <th class="border border-slate-300" width="100">分類</th>
+                        <th class="border border-slate-300" width="100">子分類</th>
                         <th class="border border-slate-300">名稱</th>
                         <th class="border border-slate-300" width="80">順序</th>
                         <th class="border border-slate-300" width="90">顯示/隱藏</th>
@@ -57,6 +58,13 @@
                                     無
                                 @else
                                     {{ $product->product_category->category_name }}
+                                @endif
+                            </td>
+                            <td class="border border-slate-300">
+                                @if (is_null($product->product_subcategory))
+                                    無
+                                @else
+                                    {{ $product->product_subcategory->subcategory_name }}
                                 @endif
                             </td>
                             <td class="border border-slate-300 text-left">{{ $product->product_name }}</td>

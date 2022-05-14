@@ -24,6 +24,7 @@ class Product extends Model
         'id',
         'product_name',
         'product_category_id',
+        'product_subcategory_id',
         'img_src',
         'price',
         'sequence',
@@ -34,5 +35,9 @@ class Product extends Model
 
     public function product_category() {
         return $this->hasOne('App\Models\ProductCategory', 'product_category_id', 'product_category_id');
+    }
+
+    public function product_subcategory() {
+        return $this->hasOne('App\Models\ProductSubCategory', 'product_subcategory_id', 'product_subcategory_id');
     }
 }

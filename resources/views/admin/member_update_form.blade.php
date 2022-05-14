@@ -78,6 +78,14 @@
                         }
                     });
                 }
+
+                function alertInfo(title) {
+                    Swal.fire({
+                        icon: "info",
+                        title,
+                        timer: 0,
+                    });
+                }
             </script>
         </div>
 

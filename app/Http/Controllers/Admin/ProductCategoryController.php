@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
+use App\Models\Product;
 
 class ProductCategoryController extends Controller
 {
@@ -92,7 +93,16 @@ class ProductCategoryController extends Controller
 
         $index = 0;
         if (!is_null($subcategory_ids)) {
-            DB::table('product_subcategory')->whereNotIn('product_subcategory_id', $subcategory_ids)->delete();
+            $pending_delete_subcategories = DB::table('product_subcategory')->where('category_id', $id)->whereNotIn('product_subcategory_id', $subcategory_ids)->get();
+
+            foreach ($pending_delete_subcategories as $pending_delete_subcategory) {
+                Product::where('product_subcategory_id', strval($pending_delete_subcategory->product_subcategory_id))
+                ->update([
+                    'product_subcategory_id' => 'none'
+                ]);
+            }
+
+            DB::table('product_subcategory')->where('category_id', $id)->whereNotIn('product_subcategory_id', $subcategory_ids)->delete();
 
             foreach ($subcategory_ids as $subcategory_id) {
                 if ($subcategory_id == 'new') {

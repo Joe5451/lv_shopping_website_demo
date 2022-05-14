@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 use App\Models\Product;
 use App\Models\ProductOption;
 
@@ -25,7 +26,7 @@ class ProductController extends Controller
     
     public function list(Request $request) {
         $data = $this->head_data;
-        $data['products'] = Product::orderBy('sequence', 'desc')->get();
+        $data['products'] = Product::orderBy('sequence', 'asc')->get();
         
         return view('admin.product_list', $data);
     }
@@ -35,6 +36,20 @@ class ProductController extends Controller
         $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
         
         return view('admin.product_add_form', $data);
+    }
+
+    public function get_product_subcategories(Request $request) {
+        $categoryId = $request->input('categoryId');
+
+        $subcategories = DB::table('product_subcategory')->where('category_id', $categoryId)->get();
+
+        $options_html = '<option value="none">無</option>';
+
+        foreach ($subcategories as $subcategory) {
+            $options_html .= '<option value="' . $subcategory->product_subcategory_id . '">' . $subcategory->subcategory_name . '</option>';
+        }
+
+        echo $options_html;
     }
 
     public function add(Request $request) {
@@ -85,8 +100,21 @@ class ProductController extends Controller
         $data['product'] = Product::find($id);
         $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
         $data['product_options'] = ProductOption::where('product_id', $id)->orderBy('sequence', 'asc')->get();
+        $data['subcategory_options'] = $this->get_product_subcategory_options($data['product']->product_category_id);
         
         return view('admin.product_update_form', $data);
+    }
+
+    private function get_product_subcategory_options($categoryId) {
+        $subcategories = DB::table('product_subcategory')->where('category_id', $categoryId)->get();
+
+        $options_html = '<option value="none">無</option>';
+
+        foreach ($subcategories as $subcategory) {
+            $options_html .= '<option value="' . $subcategory->product_subcategory_id . '">' . $subcategory->subcategory_name . '</option>';
+        }
+
+        return $options_html;
     }
 
     public function update($id, Request $request) {

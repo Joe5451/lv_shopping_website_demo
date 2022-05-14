@@ -35,11 +35,50 @@
 
         <div class="form_group">
             <label class="form_label">分類</label>
-            <select name="product_category_id" class="form_select">
+            <select name="product_category_id" class="form_select" onchange="changeSubcategories()">
                 <option value="none">無</option>
                 @foreach ($product_categories as $product_category)
                     <option value="{{ $product_category->product_category_id }}">{{ $product_category->category_name }}</option>
                 @endforeach
+            </select>
+
+            <script>
+                function changeSubcategories() {
+                    let categoryId = $("select[name=product_category_id]").val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('admin.get_product_subcategories') }}',
+                        data: {
+                            categoryId,
+                            '_token': '{{ csrf_token() }}',
+                        },
+                        dataType: 'html',
+                        success: function (res) {
+                            $("select[name=product_subcategory_id]").html(res);
+                        },
+                        error: function (err) {
+                            if (err.status == 419) {
+                                alertInfo('操作逾時，請重新整理頁面!');
+                            }
+                        }
+                    });
+                }
+
+                function alertInfo(title) {
+                    Swal.fire({
+                        icon: "info",
+                        title,
+                        timer: 0,
+                    });
+                }
+            </script>
+        </div>
+
+        <div class="form_group">
+            <label class="form_label">子分類</label>
+            <select name="product_subcategory_id" class="form_select">
+                <option value="none">無</option>
             </select>
         </div>
 

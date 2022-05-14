@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
 
             $table->increments('id');
             $table->string('product_name', 255)->comment('商品名稱');
-            $table->string('product_category_id', 10)->comment('分類 id');
+            $table->string('product_category_id', 10)->default('none')->comment('分類 id');
+            $table->string('product_subcategory_id', 10)->default('none')->comment('子分類 id');
             $table->mediumInteger('price')->default(0)->comment('價格');
             $table->string('img_src', 500)->default('')->comment('封面圖位置');
             $table->smallInteger('sequence')->default(0)->comment('排序');
