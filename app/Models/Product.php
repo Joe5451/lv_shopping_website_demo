@@ -40,4 +40,12 @@ class Product extends Model
     public function product_subcategory() {
         return $this->hasOne('App\Models\ProductSubCategory', 'product_subcategory_id', 'product_subcategory_id');
     }
+
+    public function product_options() {
+        return $this->hasMany('App\Models\ProductOption', 'product_id', 'id')->orderBy('sequence', 'asc');
+    }
+
+    public function product_imgs() {
+        return $this->hasMany('App\Models\ProductImg', 'product_id', 'id')->orderBy('sequence', 'asc');
+    }
 }

@@ -20,7 +20,7 @@
         <a href="contact.php" class="page_breadcrumb_link active">聯絡我們</a>
     </nav>
 
-    <form action="{{ route('contact_add') }}" method="post" class="form">
+    <form action="{{ route('contact_add') }}" method="post" class="form" id="contact_form">
         <h2 class="form_title">聯絡我們</h2>
 
         <div class="form_group">
@@ -59,9 +59,40 @@
         @csrf
         
         <div class="form_submit_wrap">
-            <input type="submit" value="送出" id="form_submit">
+            <input type="button" onclick="checkForm()" value="送出" id="form_submit">
         </div>
     </form>
+
+    <script>
+        function checkForm() {
+            if ($('input[name=name]').val() == '')
+                alertAndScrollTop($('input[name=name]'), '請輸入姓名!');
+            else if ($('input[name=email]').val() == '')
+                alertAndScrollTop($('input[name=email]'), '請輸入 Email!');
+            else if ($('input[name=phone]').val() == '')
+                alertAndScrollTop($('input[name=phone]'), '請輸入聯絡電話!');
+            else if ($('textarea[name=content]').val() == '')
+                alertAndScrollTop($('textarea[name=content]'), '請輸入內容!');
+            else
+                $('#contact_form').submit();
+        }
+
+        function alertAndScrollTop(element, title) {
+            Swal.fire({
+                icon: "info",
+                title,
+                timer: 0,
+                willClose: () => {
+                    var contentTop = element.offset().top - 120;
+                    $([document.documentElement, document.body]).animate({
+                        scrollTop: contentTop
+                    }, 800, 'swing', function() {
+                        element.focus();
+                    });
+                },
+            });
+        }
+    </script>
     
 </section>
 

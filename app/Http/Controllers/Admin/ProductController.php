@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\Product;
 use App\Models\ProductOption;
+use App\Models\ProductImg;
 
 class ProductController extends Controller
 {
@@ -59,7 +60,6 @@ class ProductController extends Controller
         } else {
             $path = '';
         }
-
         
         $data = $request->input();
         $option_names = $request->input('option_names');
@@ -119,15 +119,35 @@ class ProductController extends Controller
 
     public function update($id, Request $request) {
         $data = $request->input();
+
+        // $product_column = ['product_name', 'product_category_id', 'product_subcategory_id', 'display', 'price', 'sequence', 'summary', 'content'];
+        // foreach ($data as $key => $value) {
+        //     if (!in_array($key, $product_column)) {
+        //         unset($data[$key]);
+        //     }
+        // }
+
+        unset($data['_token']);
+        unset($data['delete_img']);
+
+        // 規格
         $option_ids = $request->input('option_ids');
         $option_names = $request->input('option_names');
         $option_sequences = $request->input('option_sequences');
-        unset($data['_token']);
         unset($data['option_ids']);
         unset($data['option_names']);
         unset($data['option_sequences']);
-        unset($data['delete_img']);
         
+        // 商品圖片
+        $img_ids = $request->input('secondary_img_ids');
+        $img_indexes = $request->input('secondary_img_indexes');
+        $img_change = $request->input('secondary_img_change');
+        $img_sequences = $request->input('secondary_img_sequences');
+        unset($data['secondary_img_ids']);
+        unset($data['secondary_img_indexes']);
+        unset($data['secondary_img_change']);
+        unset($data['secondary_img_sequences']);
+
         $img_src = $request->file('img_src');
         $delete_img = $request->input('delete_img');
 
@@ -144,9 +164,58 @@ class ProductController extends Controller
 
         Product::where('id', $id)->update($data);
 
+        // 商品圖片
+        // $product_img_srcs = [];
+        // if (!is_null($img_srcs)) {
+        //     foreach ($request->secondary_img_srcs as $product_img_src) {
+        //         if ($product_img_src->isValid()) {
+        //             // $extension = $product_img_src->extension();
+        //             $path = $product_img_src->store('images');
+
+        //             $product_img_srcs[] = $path;
+        //         } else {
+        //             $product_img_srcs[] = '';
+        //         }
+        //     }
+        // }
+        
+        if (!is_null($img_ids)) {
+            DB::table('product_img')->where('product_id', $id)->whereNotIn('id', $img_ids)->delete();
+
+            $index = 0;
+            foreach ($img_ids as $img_id) {
+                $img_data = [
+                    'product_id' => $id,
+                    'sequence' => $img_sequences[$index]
+                ];
+                
+                if ($img_change[$index] == 'true') { // 新檔案
+                    $file_name = 'secondary_img_' . $img_indexes[$index];
+                    $img_file = $request->file($file_name);
+
+                    if (!is_null($img_file) && $img_file->isValid()) {
+                        $path = $img_file->store('images');
+        
+                        $img_data['src'] = $path;
+                    }
+                }
+
+                if ($img_id == 'new') {
+                    ProductImg::create($img_data);
+                } else {
+                    ProductImg::where('id', $img_id)->update($img_data);
+                }
+
+                $index++;
+            }
+        } else { // 刪除所有商品圖片
+            DB::table('product_img')->where('product_id', $id)->delete();
+        }
+
+        // 商品規格
         $option_index = 0;
         if (!is_null($option_ids)) {
-            DB::table('product_option')->whereNotIn('option_id', $option_ids)->delete();
+            DB::table('product_option')->where('product_id', $id)->whereNotIn('option_id', $option_ids)->delete();
 
             foreach ($option_ids as $option_id) {
                 if ($option_id == 'new') {

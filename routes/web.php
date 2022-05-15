@@ -60,7 +60,7 @@ Route::prefix('member')->name('member.')->middleware(['member.auth'])->group(fun
 
 // 購物商城
 Route::prefix('product')->name('product.')->group(function () {
-    Route::get('/list', [ProductController::class, 'list'])->name('list');
+    Route::get('/list/{categoryId?}/{subcategoryId?}', [ProductController::class, 'list'])->name('list');
     Route::get('/content/{id}', [ProductController::class, 'content'])->name('content');
 });
 

@@ -19,7 +19,7 @@ class CreateNewsTable extends Migration
 
             $table->increments('id');
             $table->string('title', 255)->comment('標題');
-            $table->string('news_category_id', 10)->comment('分類 id');
+            $table->string('news_category_id', 10)->default('')->comment('分類 id');
             $table->string('img_src', 500)->default('')->comment('封面圖位置');
             $table->date('date')->comment('日期');
             $table->mediumText('summary')->default('')->comment('摘要');

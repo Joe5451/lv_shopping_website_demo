@@ -18,7 +18,7 @@ class CreateProductCategoryTable extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->increments('product_category_id');
-            $table->string('category_name', 100)->comment('分類名稱');
+            $table->string('category_name', 100)->default('')->comment('分類名稱');
             $table->tinyInteger('display')->default(1)->comment('顯示狀態 (0:disabled, 1:enabled)');
             $table->smallInteger('sequence')->default(0)->comment('排序');
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductOptionTable extends Migration
+class CreateProductImgTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateProductOptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_option', function (Blueprint $table) {
+        Schema::create('product_img', function (Blueprint $table) {
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
 
-            $table->increments('option_id');
+            $table->increments('id');
             $table->string('product_id', 10)->default('')->comment('商品 id');
-            $table->string('option_name', 100)->default('')->comment('選項名稱');
+            $table->string('src', 500)->default('')->comment('圖片位置');
             $table->smallInteger('sequence')->default(0)->comment('排序');
         });
     }
@@ -31,6 +31,6 @@ class CreateProductOptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_option');
+        Schema::dropIfExists('product_img');
     }
 }

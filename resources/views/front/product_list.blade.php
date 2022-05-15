@@ -26,39 +26,41 @@
                 商品分類
             </button>
             <div class="product_category_container">
-                <div class="product_category">
-                    <div class="product_category_title">
-                        天材地寶
-                        <i class="fas fa-plus"></i>
+                @foreach ($product_categories as $product_category)
+                    <?php
+                        if ($current_categoryId == $product_category->product_category_id) {
+                            $category_icon = 'fa-minus';
+                            $subcategory_display = 'style="display:block"';
+                        } else {
+                            $category_icon = 'fa-plus';
+                            $subcategory_display = '';
+                        }
+                    ?>
+                
+                    <div class="product_category">
+                        <div class="product_category_title">
+                            {{ $product_category->category_name }}
+                            <i class="fas {{ $category_icon }}"></i>
+                        </div>
+                        <div class="product_category_content" {!! $subcategory_display !!}>
+                            @foreach ($product_category->product_subcategories as $product_subcategory)
+                                @if ($product_subcategory->display == '1')
+                                    <?php
+                                        $active = '';
+                                        if ($current_categoryId == $product_category->product_category_id && 
+                                            $current_subcategoryId == $product_subcategory->product_subcategory_id) {
+                                                $active = 'active';
+                                        }
+                                    ?>
+                                
+                                    <a href="{{ route('product.list', [$product_category->product_category_id, $product_subcategory->product_subcategory_id]) }}" class="product_category_link {{ $active }}">
+                                        {{ $product_subcategory->subcategory_name }}
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="product_category_content">
-                        <a href="#" class="product_category_link">補氣養生</a>
-                        <a href="#" class="product_category_link">強健體魄</a>
-                        <a href="#" class="product_category_link">美容養顏</a>
-                    </div>
-                </div>
-                <div class="product_category">
-                    <div class="product_category_title">
-                        天材地寶
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="product_category_content">
-                        <a href="#" class="product_category_link">補氣養生</a>
-                        <a href="#" class="product_category_link">強健體魄</a>
-                        <a href="#" class="product_category_link">美容養顏</a>
-                    </div>
-                </div>
-                <div class="product_category">
-                    <div class="product_category_title">
-                        天材地寶
-                        <i class="fas fa-plus"></i>
-                    </div>
-                    <div class="product_category_content">
-                        <a href="#" class="product_category_link">補氣養生</a>
-                        <a href="#" class="product_category_link">強健體魄</a>
-                        <a href="#" class="product_category_link">美容養顏</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
 
             <script>
@@ -77,78 +79,20 @@
         </div>
 
         <div class="product_list_container">
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
+            @foreach ($products as $product)
+                <a href="{{ route('product.content', $product->id) }}" class="product_list">
+                    <div class="product_list_img_wrap">
+                        <img src="{{ env('IMG_URL') . $product->img_src }}" alt="{{ $product->product_name }}" class="product_list_img">
+                        <div class="product_list_img_mask">
+                            <span>MORE</span>
+                        </div>
                     </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
+                    <div class="product_list_foot">
+                        <div class="product_list_price">${{ number_format($product->price) }}</div>
+                        <div class="product_list_title">{{ $product->product_name }}</div>
                     </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
-                    </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
-                    </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
-                    </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
-            <a href="product.php" class="product_list">
-                <div class="product_list_img_wrap">
-                    <img src="img/img2.png" alt="產品" class="product_list_img">
-                    <div class="product_list_img_mask">
-                        <span>MORE</span>
-                    </div>
-                </div>
-                <div class="product_list_foot">
-                    <div class="product_list_price">$300</div>
-                    <div class="product_list_title">千年人參</div>
-                </div>
-            </a>
+                </a>
+            @endforeach
         </div>
     </div>
 
