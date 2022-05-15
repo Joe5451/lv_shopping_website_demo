@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->collation = 'utf8mb4_general_ci';
 
             $table->increments('id');
-            $table->string('product_name', 255)->comment('商品名稱');
+            $table->string('product_name', 255)->default('')->comment('商品名稱');
             $table->string('product_category_id', 10)->default('none')->comment('分類 id');
             $table->string('product_subcategory_id', 10)->default('none')->comment('子分類 id');
             $table->mediumInteger('price')->default(0)->comment('價格');

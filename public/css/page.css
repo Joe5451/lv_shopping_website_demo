@@ -967,6 +967,7 @@
     height: 36px;
     transition: all 0.4s ease-in-out;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .product_amount_btn:hover,
@@ -1011,6 +1012,7 @@
     border-radius: 5px;
     width: 140px;
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
 }
 
 .product_btn:hover {

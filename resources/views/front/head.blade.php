@@ -42,8 +42,9 @@
         <a href="{{ route('member.login_form') }}" class="main_header_btn" menu-id="5">
             <i class="fas fa-user"></i>
         </a>
-        <a href="cart.php" class="main_header_btn main_header_cart_btn" menu-id="6">
+        <a href="{{ route('cart.content') }}" class="main_header_btn main_header_cart_btn" menu-id="6">
             <i class="fas fa-shopping-cart"></i>
+            <!-- <span class="cart_amount">@{{ $cart_amount }}</span> -->
             <span class="cart_amount">0</span>
         </a>
     </div>

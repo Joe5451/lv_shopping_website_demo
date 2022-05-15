@@ -17,6 +17,7 @@ use App\Http\Controllers\Front\NewsController as NewsController;
 use App\Http\Controllers\Front\ContactController as ContactController;
 use App\Http\Controllers\Front\MemberController as MemberController;
 use App\Http\Controllers\Front\ProductController as ProductController;
+use App\Http\Controllers\Front\CartController as CartController;
 
 // Common
 use App\Http\Controllers\AddressController as AddressController;
@@ -62,6 +63,13 @@ Route::prefix('member')->name('member.')->middleware(['member.auth'])->group(fun
 Route::prefix('product')->name('product.')->group(function () {
     Route::get('/list/{categoryId?}/{subcategoryId?}', [ProductController::class, 'list'])->name('list');
     Route::get('/content/{id}', [ProductController::class, 'content'])->name('content');
+});
+
+// 購物車
+Route::prefix('cart')->name('cart.')->group(function () {
+    Route::post('/add', [CartController::class, 'add'])->name('add');
+    Route::get('/content', [CartController::class, 'content'])->name('content');
+    Route::get('/delete/{cartId}', [CartController::class, 'delete'])->name('delete');
 });
 
 // Admin

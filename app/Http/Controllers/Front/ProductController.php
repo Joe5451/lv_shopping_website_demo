@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use App\Libraries\MemberAuth;
+
 use App\Models\HeadImg;
 use App\Models\ProductCategory;
-// use App\Models\ProductSubCategory;
+use App\Models\ProductSubCategory;
 use App\Models\Product;
 use App\Models\ProductOption;
 
@@ -54,6 +57,8 @@ class ProductController extends Controller
         $data['product'] = Product::find($id);
 
         if (is_null($data['product']) || $data['product']->display == '0') die('操作錯誤!');
+
+        $data['is_login'] = MemberAuth::isLoggedIn();
         
         // $data['products'] = News::orderBy('date', 'desc')->get();
         // $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
