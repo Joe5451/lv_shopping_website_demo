@@ -57,7 +57,7 @@ class NewsCategoryController extends Controller
         $action = $request->input('action');
 
         if ($action == 'none' || $action == '') {
-            $this->errorAndRedirectList();
+            $this->alertAndRedirectList();
         }
 
         switch ($action) {

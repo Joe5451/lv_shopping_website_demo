@@ -64,7 +64,7 @@ class HeadImgController extends Controller
         $action = $request->input('action');
 
         if ($action == 'none' || $action == '') {
-            $this->errorAndRedirectList();
+            $this->alertAndRedirectList();
         }
 
         switch ($action) {
@@ -137,12 +137,12 @@ class HeadImgController extends Controller
     //     return true;
     // }
 
-    // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-    //     echo view('admin.alert', [
-    //         'icon_type' => $icon,
-    //         'message' => $message,
-    //         'redirect' => route('admin.news_list')
-    //     ]);
-    // }
+    private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
+        echo view('admin.alert', [
+            'icon_type' => $icon,
+            'message' => $message,
+            'redirect' => route('admin.head_img')
+        ]);
+    }
     
 }

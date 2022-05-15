@@ -75,7 +75,6 @@
 
                 drEvent_secondary.on('dropify.fileReady', function(event, element) { // 更改檔案(新上傳檔案)
                     $(this).parents('.product_secondary_img_wrap').find('input[name="secondary_img_change[]"]').val('true');
-                    console.log('ji');
                 });
 
                 let current_secondary_img_index = $('.product_secondary_img_wrap').length + 1;

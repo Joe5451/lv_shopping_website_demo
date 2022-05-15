@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ProductCategory;
 use App\Models\ProductSubCategory;
 use App\Models\Product;
@@ -62,21 +63,59 @@ class ProductController extends Controller
         }
         
         $data = $request->input();
+
+        // 規格
         $option_names = $request->input('option_names');
         $option_sequences = $request->input('option_sequences');
         unset($data['_token']);
         unset($data['option_names']);
         unset($data['option_sequences']);
 
+        // 商品圖片
+        $img_ids = $request->input('secondary_img_ids');
+        $img_indexes = $request->input('secondary_img_indexes');
+        $img_change = $request->input('secondary_img_change');
+        $img_sequences = $request->input('secondary_img_sequences');
+        unset($data['secondary_img_ids']);
+        unset($data['secondary_img_indexes']);
+        unset($data['secondary_img_change']);
+        unset($data['secondary_img_sequences']);
+
         $data['img_src'] = $path;
 
+        // 修改 Request 不將空字串自動變成 null
         // if (is_null($data['summary'])) $data['summary'] = '';
         // if (is_null($data['content'])) $data['content'] = '';
 
         $product = Product::create($data);
 
-        $option_index = 0;
+        if (!is_null($img_ids)) {
+            $index = 0;
+            foreach ($img_ids as $img_id) {
+                $img_data = [
+                    'product_id' => $product->id,
+                    'sequence' => $img_sequences[$index]
+                ];
+                
+                if ($img_change[$index] == 'true') { // 新檔案
+                    $file_name = 'secondary_img_' . $img_indexes[$index];
+                    $img_file = $request->file($file_name);
+
+                    if (!is_null($img_file) && $img_file->isValid()) {
+                        $path = $img_file->store('images');
+        
+                        $img_data['src'] = $path;
+                    }
+                }
+
+                ProductImg::create($img_data);
+
+                $index++;
+            }
+        }
+
         if (!is_null($option_names)) {
+            $option_index = 0;
             foreach ($option_names as $option_name) {
                 ProductOption::create([
                     'product_id' => $product->id,
@@ -165,20 +204,6 @@ class ProductController extends Controller
         Product::where('id', $id)->update($data);
 
         // 商品圖片
-        // $product_img_srcs = [];
-        // if (!is_null($img_srcs)) {
-        //     foreach ($request->secondary_img_srcs as $product_img_src) {
-        //         if ($product_img_src->isValid()) {
-        //             // $extension = $product_img_src->extension();
-        //             $path = $product_img_src->store('images');
-
-        //             $product_img_srcs[] = $path;
-        //         } else {
-        //             $product_img_srcs[] = '';
-        //         }
-        //     }
-        // }
-        
         if (!is_null($img_ids)) {
             DB::table('product_img')->where('product_id', $id)->whereNotIn('id', $img_ids)->delete();
 
@@ -213,10 +238,10 @@ class ProductController extends Controller
         }
 
         // 商品規格
-        $option_index = 0;
         if (!is_null($option_ids)) {
             DB::table('product_option')->where('product_id', $id)->whereNotIn('option_id', $option_ids)->delete();
-
+            
+            $option_index = 0;
             foreach ($option_ids as $option_id) {
                 if ($option_id == 'new') {
                     ProductOption::create([
@@ -250,10 +275,14 @@ class ProductController extends Controller
         $action = $request->input('action');
 
         if ($action == 'none' || $action == '') {
-            $this->errorAndRedirectList();
+            $this->alertAndRedirectList();
         }
 
         switch ($action) {
+            case 'update':
+                $result = $this->batch_update($request);
+                $action_message = '批次更新';
+                break;
             case 'display_on':
                 $result = $this->batch_display_update(1, $request);
                 $action_message = '顯示';
@@ -276,6 +305,34 @@ class ProductController extends Controller
             'message' => $action_message . '成功!',
             'redirect' => route('admin.product_list')
         ]);
+    }
+
+    function batch_update($request) {
+        $data = $request->input();
+
+        $ids = $data['ids'];
+        $sequences = $data['sequences'];
+
+        $index = 0;
+        foreach ($ids as $id) {
+            $validator = Validator::make([
+                'sequence' => $sequences[$index],
+            ],
+            [
+                'sequence' => 'required|integer',
+            ]);
+
+            if (!$validator->fails()) {
+                Product::where('id', $id)
+                ->update([
+                    'sequence' => $sequences[$index]
+                ]);
+            }
+            
+            $index++;
+        }
+
+        return true;
     }
 
     private function batch_display_update($display, $request) {
@@ -303,6 +360,8 @@ class ProductController extends Controller
         }
 
         Product::whereIn('id', $ids)->delete();
+        ProductOption::whereIn('product_id', $ids)->delete();
+        ProductImg::whereIn('product_id', $ids)->delete();
 
         return true;
     }

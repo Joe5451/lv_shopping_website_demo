@@ -9,14 +9,38 @@
     <nav class="admin_sub_nav custom_horizontal_scrollbar">
         <a href="{{ route('admin.product_list') }}" disabled class="admin_sub_nav_link active">列表</a>
         <a href="{{ route('admin.product_add_form') }}" class="admin_sub_nav_link">新增</a>
-        <a href="#" class="admin_sub_nav_link">批次更新</a>
-        <a href="#" class="admin_sub_nav_link">勾選顯示</a>
-        <a href="#" class="admin_sub_nav_link">勾選隱藏</a>
-        <a href="#" class="admin_sub_nav_link">勾選刪除</a>
+        <a onclick="batch_action('update');" class="admin_sub_nav_link">批次更新</a>
+        <a onclick="batch_action('display_on');" class="admin_sub_nav_link">勾選顯示</a>
+        <a onclick="batch_action('display_off');" class="admin_sub_nav_link">勾選隱藏</a>
+        <a onclick="confirmBatchDelete();" class="admin_sub_nav_link">勾選刪除</a>
+
+        <script>
+            function batch_action(action) {
+                $('input[name=action]').val(action);
+                $('#batch_update_form').submit();
+            }
+
+            function confirmBatchDelete() {
+                Swal.fire({
+                    icon: 'question',
+                    title: '確定執行刪除?',
+                    showCancelButton: true,
+                    cancelButtonText: '取消',
+                    confirmButtonText: '確定',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('input[name=action]').val('delete');
+                        $('#batch_update_form').submit();
+                    } 
+                })
+            }
+        </script>
     </nav>
 
     <div class="table_container overflow-x-auto custom_horizontal_scrollbar">
-        <form action="" method="post">
+        <form action="{{ route('admin.product_batch_action') }}" method="post" id="batch_update_form">
+            <input type="hidden" name="action" value="none">
+
             <table class="custom_table table-auto w-full border-collapse border border-slate-400">
                 <thead class="bg-slate-100 text-slate-700">
                     <tr>
