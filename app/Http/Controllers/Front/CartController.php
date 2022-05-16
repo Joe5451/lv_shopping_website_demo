@@ -25,40 +25,28 @@ use App\Models\Member;
 class CartController extends Controller
 {
     var $common_data = [];
+    public $adminInfo;
     
-    public function __construct()
+    public function __construct(Request $request)
     {
-        
-        
+        // $this->middleware(function ($request, $next) {
+        //     $member_id = Crypt::decryptString(session('memberId'));
+
+        //     $data = $request->get('var1');
+        //     var_dump($data);
+        //     die('end');
+            
+        //     return $next($request);
+        // });
+
+        // $data = $request->get('var1');
+        // var_dump($data);
+        // die('end2');
+
         $this->common_data = [
             'menu_id' => 6,
             'head_img' => HeadImg::find(2),
-            // 'cart_amount' => $this->getCartAmount()
         ];
-    }
-
-    private function getCartAmount() {
-        // $memberId = session('memberId');
-        // $this->middleware(function ($request, $next) {
-        //     $memberId = Session::get('memberId');
-        //     die(var_dump($memberId));
-        // });
-
-
-        // $memberId = Session::get('memberId');
-        $memberId = session('memberId');
-        // $memberId = $session->get('memberId');
-
-        die(var_dump($memberId));
-        
-        if (MemberAuth::isLoggedIn()) {
-            $memberId = Crypt::decryptString(session('memberId'));
-            $amount = Cart::where('member_id', $memberId)->count();
-        } else {
-            $amount = 0;
-        }
-
-        return $amount;
     }
 
     public function add(Request $request) {
@@ -120,7 +108,7 @@ class CartController extends Controller
         ]);
     }
 
-    public function content() {
+    public function content(Request $request) {
         if (!MemberAuth::isLoggedIn()) {
             return $this->redirectMemberLogin();
         }
@@ -128,6 +116,7 @@ class CartController extends Controller
         $memberId = Crypt::decryptString(session('memberId'));
         
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['member'] = Member::find($memberId);
         $data['cart_products'] = Cart::where('member_id', $memberId)->get();
 
@@ -157,18 +146,4 @@ class CartController extends Controller
             'redirect' => route('member.login_form')
         ]);
     }
-
-    // public function content($id, Request $request) {
-    //     $data = $this->common_data;
-    //     $data['product'] = Product::find($id);
-
-    //     if (is_null($data['product']) || $data['product']->display == '0') die('操作錯誤!');
-
-    //     $data['is_login'] = MemberAuth::isLoggedIn();
-        
-    //     // $data['products'] = News::orderBy('date', 'desc')->get();
-    //     // $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
-
-    //     return view('front.product_content', $data);
-    // }
 }

@@ -44,8 +44,8 @@
         </a>
         <a href="{{ route('cart.content') }}" class="main_header_btn main_header_cart_btn" menu-id="6">
             <i class="fas fa-shopping-cart"></i>
-            <!-- <span class="cart_amount">@{{ $cart_amount }}</span> -->
-            <span class="cart_amount">0</span>
+            <span class="cart_amount">{{ $cart_amount }}</span>
+            <!-- <span class="cart_amount">0</span> -->
         </a>
     </div>
 

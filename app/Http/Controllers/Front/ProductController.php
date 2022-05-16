@@ -26,8 +26,9 @@ class ProductController extends Controller
         ];
     }
     
-    public function list($categoryId = null, $subcategoryId = null) {
+    public function list($categoryId = null, $subcategoryId = null, Request $request) {
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['product_categories'] = ProductCategory::where('display', '1')->orderBy('sequence', 'asc')->get();
 
         // 沒有 categoryId 或 subcategoryId 則顯示第一個分類及子分類
@@ -54,6 +55,7 @@ class ProductController extends Controller
 
     public function content($id, Request $request) {
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['product'] = Product::find($id);
 
         if (is_null($data['product']) || $data['product']->display == '0') die('操作錯誤!');
