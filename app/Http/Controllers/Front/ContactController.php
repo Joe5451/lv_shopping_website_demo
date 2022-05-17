@@ -16,8 +16,9 @@ class ContactController extends Controller
         $this->head_data = [];
     }
 
-    public function contact_form() {
+    public function contact_form(Request $request) {
         $data = $this->head_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['head_img'] = HeadImg::find(3);
         $data['menu_id'] = 4;
         
@@ -37,13 +38,4 @@ class ContactController extends Controller
             'redirect' => route('home')
         ]);
     }
-
-    // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-    //     echo view('admin.alert', [
-    //         'icon_type' => $icon,
-    //         'message' => $message,
-    //         'redirect' => route('admin.news_list')
-    //     ]);
-    // }
-    
 }

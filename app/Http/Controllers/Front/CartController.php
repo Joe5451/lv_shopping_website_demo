@@ -25,24 +25,9 @@ use App\Models\Member;
 class CartController extends Controller
 {
     var $common_data = [];
-    public $adminInfo;
     
-    public function __construct(Request $request)
+    public function __construct()
     {
-        // $this->middleware(function ($request, $next) {
-        //     $member_id = Crypt::decryptString(session('memberId'));
-
-        //     $data = $request->get('var1');
-        //     var_dump($data);
-        //     die('end');
-            
-        //     return $next($request);
-        // });
-
-        // $data = $request->get('var1');
-        // var_dump($data);
-        // die('end2');
-
         $this->common_data = [
             'menu_id' => 6,
             'head_img' => HeadImg::find(2),

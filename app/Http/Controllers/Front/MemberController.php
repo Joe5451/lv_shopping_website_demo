@@ -21,12 +21,13 @@ class MemberController extends Controller
         ];
     }
 
-    public function login_form() {
+    public function login_form(Request $request) {
         if (MemberAuth::isLoggedIn()) {
             return redirect(route('member.update_form'));
         }
         
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         
         return view('front.member_login', $data);
     }
@@ -52,8 +53,9 @@ class MemberController extends Controller
         }
     }
 
-    public function signup_form() {
+    public function signup_form(Request $request) {
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         
         return view('front.member_signup', $data);
     }
@@ -84,11 +86,12 @@ class MemberController extends Controller
         ]);
     }
 
-    public function update_form() {
+    public function update_form(Request $request) {
         $memberId = Crypt::decryptString(session('memberId'));
         $member = Member::find($memberId);
 
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['member'] = $member;
         $data['town_options'] = $this->getTown($member->city);
 
@@ -201,13 +204,5 @@ class MemberController extends Controller
         MemberAuth::logOut();
         return redirect(MemberAuth::HOME);
     }
-
-    // private function alertAndRedirectList($message = '操作錯誤!', $icon = 'info') {
-    //     echo view('admin.alert', [
-    //         'icon_type' => $icon,
-    //         'message' => $message,
-    //         'redirect' => route('admin.news_list')
-    //     ]);
-    // }
     
 }

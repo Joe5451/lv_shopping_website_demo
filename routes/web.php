@@ -39,13 +39,13 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('address')->post('/getTown', [AddressController::class, 'getTown'])->name('get_town');
 
 // Front
-Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::prefix('news')->get('/list', [NewsController::class, 'list'])->name('news_list');
+Route::middleware(['cart.amount'])->get('/', [HomeController::class, 'home'])->name('home');
+Route::prefix('news')->middleware(['cart.amount'])->get('/list', [NewsController::class, 'list'])->name('news_list');
 
-Route::get('/contact', [ContactController::class, 'contact_form'])->name('contact');
+Route::middleware(['cart.amount'])->get('/contact', [ContactController::class, 'contact_form'])->name('contact');
 Route::prefix('contact')->post('/add', [ContactController::class, 'add'])->name('contact_add');
 
-Route::prefix('member')->name('member.')->group(function () {
+Route::prefix('member')->middleware(['cart.amount'])->name('member.')->group(function () {
     Route::get('/login', [MemberController::class, 'login_form'])->name('login_form');
     Route::post('/login', [MemberController::class, 'login'])->name('login');
     Route::get('/signup', [MemberController::class, 'signup_form'])->name('signup_form');
@@ -54,7 +54,7 @@ Route::prefix('member')->name('member.')->group(function () {
 });
 
 // 會員中心
-Route::prefix('member')->name('member.')->middleware(['member.auth'])->group(function () {
+Route::prefix('member')->name('member.')->middleware(['member.auth', 'cart.amount'])->group(function () {
     Route::get('/update_form', [MemberController::class, 'update_form'])->name('update_form');
     Route::post('/update', [MemberController::class, 'update'])->name('update');
 });
@@ -66,9 +66,9 @@ Route::prefix('product')->middleware(['cart.amount'])->name('product.')->group(f
 });
 
 // 購物車
-Route::prefix('cart')->name('cart.')->group(function () {
+Route::prefix('cart')->middleware(['cart.amount'])->name('cart.')->group(function () {
     Route::post('/add', [CartController::class, 'add'])->name('add');
-    Route::middleware(['cart.amount'])->get('/content', [CartController::class, 'content'])->name('content');
+    Route::get('/content', [CartController::class, 'content'])->name('content');
     Route::get('/delete/{cartId}', [CartController::class, 'delete'])->name('delete');
 });
 

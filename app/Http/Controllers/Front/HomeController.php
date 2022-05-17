@@ -16,8 +16,9 @@ class HomeController extends Controller
         $this->head_data = [];
     }
 
-    public function home() {
+    public function home(Request $request) {
         $data = $this->head_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['sliders'] = HomeSlider::orderBy('sequence', 'asc')->get();
         $data['news'] = News::orderBy('date', 'desc')->get();
         $data['menu_id'] = 1;

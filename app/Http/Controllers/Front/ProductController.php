@@ -61,9 +61,6 @@ class ProductController extends Controller
         if (is_null($data['product']) || $data['product']->display == '0') die('操作錯誤!');
 
         $data['is_login'] = MemberAuth::isLoggedIn();
-        
-        // $data['products'] = News::orderBy('date', 'desc')->get();
-        // $data['product_categories'] = ProductCategory::orderBy('sequence', 'asc')->get();
 
         return view('front.product_content', $data);
     }

@@ -22,6 +22,7 @@ class NewsController extends Controller
     
     public function list(Request $request) {
         $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
         $data['news'] = News::orderBy('date', 'desc')->get();
         $data['news_categories'] = NewsCategory::orderBy('sequence', 'asc')->get();
         
