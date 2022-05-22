@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MemberSeeder::class,
             HeadImgSeeder::class,
             HomeSliderSeeder::class,
+            DeliveryFeeSeeder::class,
         ]);
     }
 }

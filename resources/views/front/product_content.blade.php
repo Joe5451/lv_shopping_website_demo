@@ -122,7 +122,7 @@
                                 }
                             });
 
-                            $('input[name=amount').change(function() {
+                            $('input[name=amount]').change(function() {
                                 var current_amount = $('input[name=amount]').val();
                                 if (current_amount < 1) {
                                     $('input[name=amount]').val(1);

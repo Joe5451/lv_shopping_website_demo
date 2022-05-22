@@ -5,22 +5,16 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-// use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Facades\Session;
-// use Illuminate\Support\Facades\Session;
-
 use Illuminate\Support\Facades\Crypt;
 
 use App\Libraries\MemberAuth;
 
 use App\Models\Cart;
-
 use App\Models\HeadImg;
-// use App\Models\ProductCategory;
-// use App\Models\ProductSubCategory;
 use App\Models\Product;
 use App\Models\ProductOption;
 use App\Models\Member;
+use App\Models\DeliveryFee;
 
 class CartController extends Controller
 {
@@ -104,8 +98,48 @@ class CartController extends Controller
         $data['cart_amount'] = $request->get('cart_amount');
         $data['member'] = Member::find($memberId);
         $data['cart_products'] = Cart::where('member_id', $memberId)->get();
+        $data['delivery_fee'] = DeliveryFee::first()->fee;
 
         return view('front.cart', $data);
+    }
+
+    public function update_cart_amount(Request $request) {
+        if (!MemberAuth::isLoggedIn()) {
+            $res = [
+                'status' => 'fail',
+                'message' => '請登入會員<br>再進行操作',
+                'location' => route('member.login_form')
+            ];
+
+            echo json_encode($res);
+            return;
+        }
+
+        $cart_id = (int) $request->input('id');
+        $amount = (int) $request->input('amount');
+        $memberId = Crypt::decryptString(session('memberId'));
+
+        if ($amount < 1 || $amount > 1000) {
+            $res = [
+                'status' => 'fail',
+                'message' => '商品數量錯誤<br>請重新操作',
+                'location' => route('cart.content')
+            ];
+
+            echo json_encode($res);
+            return;
+        }
+
+        Cart::where('member_id', $memberId)->where('id', $cart_id)->update([
+            'amount' => $amount
+        ]);
+
+        $res = [
+            'status' => 'success',
+            'message' => ''
+        ];
+
+        echo json_encode($res);
     }
 
     public function delete($cartId) {

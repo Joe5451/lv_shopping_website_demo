@@ -69,6 +69,7 @@ Route::prefix('product')->middleware(['cart.amount'])->name('product.')->group(f
 Route::prefix('cart')->middleware(['cart.amount'])->name('cart.')->group(function () {
     Route::post('/add', [CartController::class, 'add'])->name('add');
     Route::get('/content', [CartController::class, 'content'])->name('content');
+    Route::post('/update_cart_amount', [CartController::class, 'update_cart_amount'])->name('update_amount');
     Route::get('/delete/{cartId}', [CartController::class, 'delete'])->name('delete');
 });
 

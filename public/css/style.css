@@ -59,3 +59,9 @@ input[type=number] {
 .custom_scrollbar::-webkit-scrollbar-thumb:hover {
 	background: #94a3b8; 
 }
+
+/* sweetalert2 */
+.custom_loader {
+  border-color: #2778c4 !important;
+  border-right-color: transparent !important;
+}
