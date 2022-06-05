@@ -26,9 +26,9 @@ class CreateCartTable extends Migration
             // $table->string('product_subcategory_id', 10)->default('none')->comment('子分類 id');
             // $table->string('product_subcategory_name', 10)->default('')->comment('子分類名稱');
             $table->string('option_id', 10)->default('')->comment('規格 id');
-            $table->string('option_name', 10)->default('')->comment('規格名稱');
+            $table->string('option_name', 100)->default('')->comment('規格名稱');
             $table->mediumInteger('price')->default(0)->comment('價格');
-            $table->smallInteger('price')->default(0)->comment('數量');
+            $table->smallInteger('amount')->default(0)->comment('數量');
             $table->string('img_src', 500)->default('')->comment('商品圖片');
         });
     }

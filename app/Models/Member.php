@@ -25,6 +25,7 @@ class Member extends Model
         'member_id',
         'email',
         'name',
+        'phone',
         'city',
         'town',
         'address',

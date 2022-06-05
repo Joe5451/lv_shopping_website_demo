@@ -18,6 +18,7 @@ use App\Http\Controllers\Front\ContactController as ContactController;
 use App\Http\Controllers\Front\MemberController as MemberController;
 use App\Http\Controllers\Front\ProductController as ProductController;
 use App\Http\Controllers\Front\CartController as CartController;
+use App\Http\Controllers\Front\OrderController as OrderController;
 
 // Common
 use App\Http\Controllers\AddressController as AddressController;
@@ -72,6 +73,9 @@ Route::prefix('cart')->middleware(['cart.amount'])->name('cart.')->group(functio
     Route::post('/update_cart_amount', [CartController::class, 'update_cart_amount'])->name('update_amount');
     Route::get('/delete/{cartId}', [CartController::class, 'delete'])->name('delete');
 });
+
+// 訂單
+Route::prefix('order')->name('order.')->post('/create', [OrderController::class, 'create'])->name('create');
 
 // Admin
 Route::prefix('admin')->name('admin.')->group(function() {
@@ -133,14 +137,4 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/head_img_list', [AdminHeadImgController::class, 'list'])->name('head_img_list');
     Route::get('/head_img_update_form/{id}', [AdminHeadImgController::class, 'update_form'])->name('head_img_update_form');
     Route::post('/head_img_update/{id}', [AdminHeadImgController::class, 'update'])->name('head_img_update');
-    
-
-    // Route::get('/', [ControlsPageController::class, 'home'])->name('home');
-    // Route::resource('products', ControlsProductController::class)->except(['show']);
-    // Route::resource('orders', ControlsOrderController::class)->except(['show', 'create', 'store']);
-    // Route::resource('brands', ControlsBrandController::class)->except(['show']);
-    // Route::resource('categories', ControlsCategoryController::class)->except(['show']);
-    // Route::resource('users', ControlsUserController::class)->except(['show']);
-    // Route::resource('carts', ControlsCartController::class)->only(['index']);
-    // Route::resource('categories.subcategories', ControlsSubcategoryController::class)->except(['show']);
 });

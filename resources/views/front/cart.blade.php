@@ -249,7 +249,7 @@
                 </div>
             </div>
 
-            <form action="" method="post" id="cart_form">
+            <form action="{{ route('order.create') }}" method="post" id="cart_form">
                 <div class="cart_section_head">訂單資料</div>
                 <div class="cart_order_form_block">
                     <div class="cart_order_form_inner_container">
@@ -267,7 +267,7 @@
                         <div class="form_group">
                             <label class="form_label">聯絡電話</label>
                             <div class="form_control_wrap">
-                                <input type="text" class="form_control" name="phone" >
+                                <input type="text" class="form_control" name="phone" value="{{ $member->phone }}" required>
                                 <span class="form_control_border_top_left"></span>
                                 <span class="form_control_border_bottom_right"></span>
                             </div>
@@ -349,6 +349,7 @@
                     </div>
                     
                     <div class="form_submit_wrap">
+                        @csrf
                         <input type="button" onclick="checkForm()" value="結帳" id="checkout_btn">
                     </div>
                 </div>
@@ -387,8 +388,8 @@
                     else if ($('input[name=receiver_email]').val() == '')
                         alertAndScrollTop($('input[name=receiver_email]'), '請輸入收件人 Email!');
                     else
-                        alert('ok');
-                        // $('#cart_form').submit();
+                        $('#cart_form').submit();
+                        // alert('ok');
                 }
 
                 function alertAndScrollTop(element, title) {

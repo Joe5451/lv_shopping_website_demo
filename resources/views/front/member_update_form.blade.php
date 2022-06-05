@@ -52,11 +52,20 @@
                         <span class="form_control_border_bottom_right"></span>
                     </div>
                 </div>
+
+                <div class="form_group">
+                    <label class="form_label">電話</label>
+                    <div class="form_control_wrap">
+                        <input type="text" class="form_control" name="phone" value="{{ $member->phone }}" required>
+                        <span class="form_control_border_top_left"></span>
+                        <span class="form_control_border_bottom_right"></span>
+                    </div>
+                </div>
         
                 <div class="form_group">
                     <label class="form_label">姓名</label>
                     <div class="form_control_wrap">
-                        <input type="text" class="form_control" name="name" value="{{ $member->name }}">
+                        <input type="text" class="form_control" name="name" value="{{ $member->name }}" required>
                         <span class="form_control_border_top_left"></span>
                         <span class="form_control_border_bottom_right"></span>
                     </div>
@@ -173,8 +182,9 @@
 
             <script>
                 function checkForm() {
-                    
-                    if ($('input[name=name]').val() == '')
+                    if ($('input[name=phone]').val() == '')
+                        alertAndScrollTop($('input[name=phone]'), '請輸入電話!');
+                    else if ($('input[name=name]').val() == '')
                         alertAndScrollTop($('input[name=name]'), '請輸入姓名!');
                     else if ($('select[name=city]').val() == '')
                         alertAndScrollTop($('select[name=city]'), '請選擇縣市!');
