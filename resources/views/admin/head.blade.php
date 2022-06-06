@@ -83,7 +83,7 @@
         <div class="admin_sidebar_dropdown">
             <div class="admin_sidebar_dropdown_title" menu="order">訂單與運費管理 <i class="fas fa-angle-down"></i></div>
             <div class="admin_sidebar_dropdown_content">
-                <a href="@{{ route('admin.order_list') }}" class="admin_sidebar_dropdown_link" sub-menu="order_list">訂單列表</a>
+                <a href="{{ route('admin.order_list') }}" class="admin_sidebar_dropdown_link" sub-menu="order_list">訂單列表</a>
                 <a href="@{{ route('admin.product_category_list') }}" class="admin_sidebar_dropdown_link" sub-menu="delivery_fee">運費管理</a>
             </div>
         </div>

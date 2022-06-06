@@ -10,6 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $table = 'orders';
+    protected $primaryKey = 'order_id';
     public $timestamps = false; // 不存在 created_at 和 updated_at
 
     const order_states = [

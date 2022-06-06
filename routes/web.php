@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategory
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 use App\Http\Controllers\Admin\HeadImgController as AdminHeadImgController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 // Front
 use App\Http\Controllers\Front\HomeController as HomeController;
@@ -133,6 +134,11 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::post('/member_add', [AdminMemberController::class, 'add'])->name('member_add');
     Route::post('/member_update/{id}', [AdminMemberController::class, 'update'])->name('member_update');
     Route::post('/member_batch_action', [AdminMemberController::class, 'batch_action'])->name('member_batch_action');
+
+    Route::get('/order_list', [AdminOrderController::class, 'list'])->name('order_list');
+    Route::get('/order_update_form/{id}', [AdminOrderController::class, 'update_form'])->name('order_update_form');
+    Route::post('/order_update/{id}', [AdminOrderController::class, 'update'])->name('order_update');
+    // Route::post('/order_batch_action', [AdminOrderController::class, 'batch_action'])->name('order_batch_action');
 
     Route::get('/head_img_list', [AdminHeadImgController::class, 'list'])->name('head_img_list');
     Route::get('/head_img_update_form/{id}', [AdminHeadImgController::class, 'update_form'])->name('head_img_update_form');
