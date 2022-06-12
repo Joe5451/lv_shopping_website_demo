@@ -96,6 +96,15 @@ class CartController extends Controller
         
         $data = $this->common_data;
         $data['cart_amount'] = $request->get('cart_amount');
+
+        if ($data['cart_amount'] == 0) {
+            return view('front.alert', [
+                'icon_type' => 'info',
+                'message' => '購物車內無商品!',
+                'redirect' => route('product.list')
+            ]);
+        }
+        
         $data['member'] = Member::find($memberId);
         $data['cart_products'] = Cart::where('member_id', $memberId)->get();
         $data['delivery_fee'] = DeliveryFee::first()->fee;

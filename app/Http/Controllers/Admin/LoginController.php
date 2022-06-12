@@ -25,7 +25,7 @@ class LoginController extends Controller
             return view('admin.alert', [
                 'icon_type' => 'success',
                 'message' => '登入成功!',
-                'redirect' => url('admin') . '/news_list'
+                'redirect' => url('admin') . '/home_slider'
             ]);
         } else {
             return view('admin.alert', [

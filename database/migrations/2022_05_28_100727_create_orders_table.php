@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->collation = 'utf8mb4_general_ci';
             
             $table->increments('order_id');
+            $table->string('member_id', 10)->default('')->comment('會員 id');
+            $table->string('order_number', 10)->default('')->comment('訂單編號');
             $table->dateTime('datetime', 0)->comment('訂單建立時間');
             $table->integer('subtotal')->default(0)->comment('商品小計');
             $table->mediumInteger('delivery_fee')->default(0)->comment('運費');

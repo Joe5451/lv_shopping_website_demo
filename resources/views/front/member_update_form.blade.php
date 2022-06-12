@@ -29,7 +29,7 @@
             </button>
             <div class="member_sidebar_content w-full md:w-72 max-w-full">
                 <a href="{{ route('member.update_form') }}" class="member_sidebar_link active">會員資料</a>
-                <a href="#" class="member_sidebar_link">訂單記錄</a>
+                <a href="{{ route('member.order_list') }}" class="member_sidebar_link">訂單記錄</a>
                 <a href="{{ route('member.logout') }}" class="member_sidebar_link">會員登出</a>
             </div>
 

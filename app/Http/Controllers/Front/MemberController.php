@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Libraries\MemberAuth;
 use App\Models\HeadImg;
 use App\Models\Member;
+use App\Models\Order;
 
 class MemberController extends Controller
 {
@@ -115,6 +116,17 @@ class MemberController extends Controller
             'message' => '更新成功!',
             'redirect' => route('member.update_form')
         ]);
+    }
+
+    public function order_list(Request $request) {
+        $memberId = Crypt::decryptString(session('memberId'));
+
+        $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
+        $data['orders'] = Order::where('member_id', $memberId)->orderBy('datetime', 'desc')->get();
+        $data['order_states'] = Order::order_states;
+
+        return view('front.member_order_list', $data);
     }
 
     private function getTown($city)

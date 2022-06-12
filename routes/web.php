@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\MemberController as AdminMemberController;
 use App\Http\Controllers\Admin\HeadImgController as AdminHeadImgController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\DeliveryFeeController as AdminDeliveryFeeController;
 
 // Front
 use App\Http\Controllers\Front\HomeController as HomeController;
@@ -59,6 +60,7 @@ Route::prefix('member')->middleware(['cart.amount'])->name('member.')->group(fun
 Route::prefix('member')->name('member.')->middleware(['member.auth', 'cart.amount'])->group(function () {
     Route::get('/update_form', [MemberController::class, 'update_form'])->name('update_form');
     Route::post('/update', [MemberController::class, 'update'])->name('update');
+    Route::get('/order_list', [MemberController::class, 'order_list'])->name('order_list');
 });
 
 // 購物商城
@@ -138,7 +140,9 @@ Route::prefix('admin')->name('admin.')->middleware(['admin.auth'])->group(functi
     Route::get('/order_list', [AdminOrderController::class, 'list'])->name('order_list');
     Route::get('/order_update_form/{id}', [AdminOrderController::class, 'update_form'])->name('order_update_form');
     Route::post('/order_update/{id}', [AdminOrderController::class, 'update'])->name('order_update');
-    // Route::post('/order_batch_action', [AdminOrderController::class, 'batch_action'])->name('order_batch_action');
+
+    Route::get('/delivery_fee_update_form', [AdminDeliveryFeeController::class, 'update_form'])->name('delivery_fee_update_form');
+    Route::post('/delivery_fee_update', [AdminDeliveryFeeController::class, 'update'])->name('delivery_fee_update');
 
     Route::get('/head_img_list', [AdminHeadImgController::class, 'list'])->name('head_img_list');
     Route::get('/head_img_update_form/{id}', [AdminHeadImgController::class, 'update_form'])->name('head_img_update_form');

@@ -44,12 +44,12 @@
             <a href="{{ route('member.signup_form') }}" class="member_signup_link">立即註冊</a>
         </div>
 
-        <div class="flex justify-center align-center my-8">
+        <!-- <div class="flex justify-center align-center my-8">
             <label class="form_check_label">
                 <input type="checkbox" name="remember" class="form_check" value="true" >
                 <div class="form_check_content">記住我的帳號密碼</div>
             </label>
-        </div>
+        </div> -->
         
         <div class="form_submit_wrap">
             @csrf

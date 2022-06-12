@@ -98,12 +98,14 @@ class OrderController extends Controller
 
         // 建立訂單
         $order_data = $customer_data;
+        $order_data['member_id'] = $memberId;
+        $order_data['order_number'] = $this->get_order_number();
         $order_data['datetime'] = date('Y-m-d H:i:s');
         $order_data['subtotal'] = $subtotal;
         $order_data['delivery_fee'] = $delivery_fee;
         $order_data['total'] = $total;
 
-        $order_id = Order::create($order_data)->id; // use "id" to get column "order_id"
+        $order_id = Order::create($order_data)->order_id;
 
         // 建立訂單商品
         foreach ($cart_products as $cart_product) {
@@ -122,6 +124,9 @@ class OrderController extends Controller
                 'amount' => $cart_product['amount'],
             ]);
         }
+
+        // 清空購物車
+        Cart::where('member_id', $memberId)->delete();
 
         return view('front.alert', [
             'icon_type' => 'success',
@@ -159,6 +164,43 @@ class OrderController extends Controller
             $cart_products
         ];
     }
+
+    // 產生訂單編號 = 兩個隨機大寫英文字母 + 五個隨機數字
+    private function get_order_number() {
+    	$order_number = '';
+
+    	$num = '1234567890';
+    	$num_len = strlen($num);
+
+    	$word = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    	$word_len = strlen($word);
+
+		for($i = 0; $i < 2; $i++){ // 取 2 次
+        	$order_number .= $word[rand() % $word_len]; // 隨機取得一個字元
+    	}
+
+    	for($i = 0; $i < 5; $i++){ // 取 5 次
+        	$order_number .= $num[rand() % $num_len];
+    	}
+
+        $exist_order_number = Order::where('order_number', $order_number)->get();
+
+        while (count($exist_order_number) > 0 && $j <= 10) { // 檢查訂單編號是否已存在
+            $order_number = '';
+
+            for($i = 0; $i < 2; $i++){
+                $order_number .= $word[rand() % $word_len];
+            }
+    
+            for($i = 0; $i < 5; $i++){
+                $order_number .= $num[rand() % $num_len];
+            }
+
+            $exist_order_number = Order::where('order_number', $order_number)->get();
+        }
+		
+    	return $order_number;
+	}
 
     private function redirectMemberLogin() {
         return view('front.alert', [

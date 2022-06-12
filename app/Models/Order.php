@@ -23,6 +23,8 @@ class Order extends Model
 
     protected $fillable = [
         'order_id',
+        'member_id',
+        'order_number',
         'datetime',
         'subtotal',
         'delivery_fee',

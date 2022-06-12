@@ -2,11 +2,12 @@
 
 <nav class="admin_nav">
     <a href="{{ route('admin.order_list') }}" class="admin_nav_link active">訂單管理</a>
+    <a href="{{ route('admin.delivery_fee_update_form') }}" class="admin_nav_link">運費管理</a>
 </nav>
 
 <div class="container mx-auto px-4 pb-8">
     <nav class="admin_sub_nav custom_horizontal_scrollbar">
-        <a href="{{ route('admin.order_list') }}" disabled class="admin_sub_nav_link active">列表</a>
+        <a href="{{ route('admin.order_list') }}" class="admin_sub_nav_link active">列表</a>
     </nav>
 
     <div class="table_container overflow-x-auto custom_horizontal_scrollbar">
