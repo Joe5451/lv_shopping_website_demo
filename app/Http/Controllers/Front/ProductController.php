@@ -28,7 +28,7 @@ class ProductController extends Controller
     
     public function list($categoryId = null, $subcategoryId = null, Request $request) {
         var_dump($categoryId, $subcategoryId);
-        die();
+        // die();
         
         $data = $this->common_data;
         $data['cart_amount'] = $request->get('cart_amount');
