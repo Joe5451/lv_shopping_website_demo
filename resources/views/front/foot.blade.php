@@ -21,16 +21,15 @@
                 <div class="main_footer_nav_item">
                     <div class="main_footer_nav_item_title">快速連結</div>
                     <div class="main_footer_nav_item_content">
-                        <a href="#" class="main_footer_nav_item_link">最新商品</a>
-                        <a href="product_list.php" class="main_footer_nav_item_link">購物商城</a>
-                        <a href="#" class="main_footer_nav_item_link">會員中心</a>
-                        <a href="contact.php" class="main_footer_nav_item_link">聯絡我們</a>
+                        <a href="{{ route('product.list') }}" class="main_footer_nav_item_link">購物商城</a>
+                        <a href="{{ route('member.login_form') }}" class="main_footer_nav_item_link">會員中心</a>
+                        <a href="{{ route('contact') }}" class="main_footer_nav_item_link">聯絡我們</a>
                     </div>
                 </div>
                 <div class="main_footer_nav_item">
                     <div class="main_footer_nav_item_title">資訊</div>
                     <div class="main_footer_nav_item_content">
-                        <a href="news.php" class="main_footer_nav_item_link">最新消息</a>
+                        <a href="{{ route('news.list') }}" class="main_footer_nav_item_link">最新消息</a>
                     </div>
                 </div>
             </nav>

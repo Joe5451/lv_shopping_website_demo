@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// 連結強制 https
 URL::forceScheme('https');
 
 // Common
@@ -45,11 +46,18 @@ Route::prefix('address')->post('/getTown', [AddressController::class, 'getTown']
 
 // Front
 Route::middleware(['cart.amount'])->get('/', [HomeController::class, 'home'])->name('home');
-Route::prefix('news')->middleware(['cart.amount'])->get('/list', [NewsController::class, 'list'])->name('news_list');
 
+// 最新消息
+Route::prefix('news')->middleware(['cart.amount'])->name('news.')->group(function () {
+    Route::get('/list', [NewsController::class, 'list'])->name('list');
+    Route::get('/content/{id}', [NewsController::class, 'content'])->name('content');
+});
+
+// 聯絡我們
 Route::middleware(['cart.amount'])->get('/contact', [ContactController::class, 'contact_form'])->name('contact');
 Route::prefix('contact')->post('/add', [ContactController::class, 'add'])->name('contact_add');
 
+// 會員註冊&登入
 Route::prefix('member')->middleware(['cart.amount'])->name('member.')->group(function () {
     Route::get('/login', [MemberController::class, 'login_form'])->name('login_form');
     Route::post('/login', [MemberController::class, 'login'])->name('login');

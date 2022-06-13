@@ -17,19 +17,19 @@ class HeadImgSeeder extends Seeder
         DB::table('head_img')->insert([
             [
                 'page_name' => '最新消息',
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner4.jpg',
             ],
             [
                 'page_name' => '購物商城',
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner4.jpg',
             ],
             [
                 'page_name' => '聯絡我們',
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner4.jpg',
             ],
             [
                 'page_name' => '會員中心',
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner4.jpg',
             ]
         ]);
     }

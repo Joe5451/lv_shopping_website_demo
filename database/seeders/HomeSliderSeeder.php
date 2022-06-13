@@ -16,17 +16,17 @@ class HomeSliderSeeder extends Seeder
     {
         DB::table('home_slider')->insert([
             [
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner1.jpg',
                 'href' => '',
                 'sequence' => 0,
             ],
             [
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner2.jpg',
                 'href' => '',
                 'sequence' => 1,
             ],
             [
-                'img_src' => 'images/bg_demo.png',
+                'img_src' => 'images/banner3.jpg',
                 'href' => '',
                 'sequence' => 2,
             ]

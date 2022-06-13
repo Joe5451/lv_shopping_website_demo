@@ -24,6 +24,9 @@ class DatabaseSeeder extends Seeder
             HeadImgSeeder::class,
             HomeSliderSeeder::class,
             DeliveryFeeSeeder::class,
+            ProductCategorySeeder::class,
+            ProductSubCategorySeeder::class,
+            ProductsSeeder::class,
         ]);
     }
 }

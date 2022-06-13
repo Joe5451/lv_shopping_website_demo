@@ -55,7 +55,7 @@
                 </div>
 
                 @foreach ($orders as $order)
-                <a href="#" class="transition duration-300 hover:bg-gray-50 text-lg sm:text-xl text-slate-500 flex flex-col lg:flex-row border-b border-slate-300 relative py-2 lg:py-0 pl-20 lg:pl-0">
+                <a href="#" onclick="event.preventDefault();" class="transition duration-300 hover:bg-gray-50 text-lg sm:text-xl text-slate-500 flex flex-col lg:flex-row border-b border-slate-300 relative py-2 lg:py-0 pl-20 lg:pl-0">
                     <div class="shrink-0 lg:py-2.5 px-4 text-right w-20 absolute lg:static top-2 left-0">
                         {{ $loop->index + 1 }}
                     </div>

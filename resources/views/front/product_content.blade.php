@@ -154,10 +154,12 @@
                             <i class="fas fa-shopping-cart"></i>
                             加入購物車
                         </div>
+                        <?php /*
                         <div class="product_btn" onclick="checkOut()">
                             <i class="fas fa-money-bill-wave-alt"></i>
                             立即結帳
                         </div>
+                        */ ?>
 
                         <script>
                             function addCart() {

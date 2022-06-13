@@ -28,4 +28,14 @@ class NewsController extends Controller
         
         return view('front.news_list', $data);
     }
+
+    public function content($id, Request $request) {
+        $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
+        $data['new'] = News::find($id);
+
+        if (is_null($data['new']) || $data['new']->display == '0') die('操作錯誤!');
+
+        return view('front.news_content', $data);
+    }
 }

@@ -41,81 +41,23 @@
         </div>
         
         <div class="home_hot_product_slider_container">
-            <div class="home_hot_product_slider">
-                <a href="#" class="product_card">
-                    <div class="product_card_img_wrap">
-                        <img src="img/img2.png" alt="熱門產品" class="product_card_img">
-                        <div class="product_card_more_mask">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div class="product_card_more_text">MORE</div>
+            @foreach ($products as $product)
+                <div class="home_hot_product_slider">
+                    <a href="{{ route('product.content', $product->id) }}" class="product_card">
+                        <div class="product_card_img_wrap">
+                            <img src="{{ env('IMG_URL') . $product->img_src }}" alt="{{ $product->product_name }}" class="product_card_img">
+                            <div class="product_card_more_mask">
+                                <i class="fas fa-shopping-cart"></i>
+                                <div class="product_card_more_text">MORE</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="product_card_body">
-                        <div class="product_card_price">$300</div>
-                        <div class="product_card_title">產品一</div>
-                    </div>
-                </a>
-            </div>
-            <div class="home_hot_product_slider">
-                <a href="#" class="product_card">
-                    <div class="product_card_img_wrap">
-                        <img src="img/img2.png" alt="熱門產品" class="product_card_img">
-                        <div class="product_card_more_mask">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div class="product_card_more_text">MORE</div>
+                        <div class="product_card_body">
+                            <div class="product_card_price">${{ number_format($product->price) }}</div>
+                            <div class="product_card_title">{{ $product->product_name }}</div>
                         </div>
-                    </div>
-                    <div class="product_card_body">
-                        <div class="product_card_price">$300</div>
-                        <div class="product_card_title">產品一</div>
-                    </div>
-                </a>
-            </div>
-            <div class="home_hot_product_slider">
-                <a href="#" class="product_card">
-                    <div class="product_card_img_wrap">
-                        <img src="img/img2.png" alt="熱門產品" class="product_card_img">
-                        <div class="product_card_more_mask">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div class="product_card_more_text">MORE</div>
-                        </div>
-                    </div>
-                    <div class="product_card_body">
-                        <div class="product_card_price">$300</div>
-                        <div class="product_card_title">產品一</div>
-                    </div>
-                </a>
-            </div>
-            <div class="home_hot_product_slider">
-                <a href="#" class="product_card">
-                    <div class="product_card_img_wrap">
-                        <img src="img/img2.png" alt="熱門產品" class="product_card_img">
-                        <div class="product_card_more_mask">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div class="product_card_more_text">MORE</div>
-                        </div>
-                    </div>
-                    <div class="product_card_body">
-                        <div class="product_card_price">$300</div>
-                        <div class="product_card_title">產品一</div>
-                    </div>
-                </a>
-            </div>
-            <div class="home_hot_product_slider">
-                <a href="#" class="product_card">
-                    <div class="product_card_img_wrap">
-                        <img src="img/img2.png" alt="熱門產品" class="product_card_img">
-                        <div class="product_card_more_mask">
-                            <i class="fas fa-shopping-cart"></i>
-                            <div class="product_card_more_text">MORE</div>
-                        </div>
-                    </div>
-                    <div class="product_card_body">
-                        <div class="product_card_price">$300</div>
-                        <div class="product_card_title">產品一</div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 
@@ -252,7 +194,7 @@
             <div class="index_news_slider_container">
                 @foreach ($news as $new)
                     <div class="index_news_slider">
-                        <a href="#" class="index_news_slider_link">
+                        <a href="{{ route('news.content', $new->id) }}" class="index_news_slider_link">
                             <div class="index_news_slider_img_wrap">
                                 <img src="{{ env('IMG_URL') . $new->img_src }}" class="index_news_slider_img">
                                 <div class="index_news_slider_more_mask">MORE</div>
