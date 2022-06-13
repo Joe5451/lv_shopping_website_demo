@@ -38,6 +38,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+URL::forceScheme('https');
+
 // Common
 Route::prefix('address')->post('/getTown', [AddressController::class, 'getTown'])->name('get_town');
 
