@@ -41,7 +41,7 @@ class HomeSliderController extends Controller
 
         $data['img_src'] = $path;
 
-        // if (is_null($data['href'])) $data['href'] = ''; // 已修改空字串轉為 null 的 middleware
+        if (is_null($data['href'])) $data['href'] = ''; // 已修改空字串轉為 null 的 middleware
 
         HomeSlider::create($data);
 
