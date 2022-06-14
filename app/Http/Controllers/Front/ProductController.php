@@ -26,6 +26,7 @@ class ProductController extends Controller
         ];
     }
 
+    // 避免 function list() 的 Symfony 產生 too few arguments to function 錯誤
     public function first_list(Request $request) {
         $data = $this->common_data;
         $data['cart_amount'] = $request->get('cart_amount');

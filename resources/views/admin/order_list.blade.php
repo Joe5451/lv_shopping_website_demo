@@ -22,7 +22,7 @@
                         <th class="border border-slate-300">收件人姓名</th>
                         <th class="border border-slate-300">收件人電話</th>
                         <th class="border border-slate-300">總金額</th>
-                        <th class="border border-slate-300" width="80">狀態</th>
+                        <th class="border border-slate-300" width="100">狀態</th>
                         <th class="border border-slate-300" width="80">動作</th>
                     </tr>
                     <script>

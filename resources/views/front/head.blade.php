@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/slick.css" />
     <link rel="stylesheet" href="css/slick-theme.css" />
     <link rel="stylesheet" href="css/fontawesome.css" />
+    <link rel="shortcut icon" href="favicon.ico" />
     
     <script src="js/jquery-1.12.3.min.js"></script>
     <script src="js/tailwind.js"></script>
