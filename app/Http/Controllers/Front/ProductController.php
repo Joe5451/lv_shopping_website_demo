@@ -26,7 +26,7 @@ class ProductController extends Controller
         ];
     }
 
-    public function first(Request $request) {
+    public function first_list(Request $request) {
         $data = $this->common_data;
         $data['cart_amount'] = $request->get('cart_amount');
         $data['product_categories'] = ProductCategory::where('display', '1')->orderBy('sequence', 'asc')->get();
