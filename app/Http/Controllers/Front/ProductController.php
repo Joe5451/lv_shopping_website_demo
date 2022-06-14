@@ -25,11 +25,38 @@ class ProductController extends Controller
             'head_img' => HeadImg::find(2)
         ];
     }
+
+    public function first(Request $request) {
+        $data = $this->common_data;
+        $data['cart_amount'] = $request->get('cart_amount');
+        $data['product_categories'] = ProductCategory::where('display', '1')->orderBy('sequence', 'asc')->get();
+
+        $categoryId = null;
+        $subcategoryId = null;
+
+        // 顯示第一個分類及子分類
+        if (count($data['product_categories']) > 0) {
+            $categoryId = $data['product_categories'][0]->product_category_id;
+
+            if (count($data['product_categories'][0]->product_subcategories) > 0) {
+                $subcategoryId = $data['product_categories'][0]->product_subcategories[0]->product_subcategory_id;
+            }
+        }
+
+        $builder = DB::table('products');
+        $builder->where('product_category_id', $categoryId);
+        $builder->where('product_subcategory_id', $subcategoryId);
+        $builder->where('display', '1');
+        $builder->orderBy('sequence', 'asc');
+        $data['products'] = $builder->get();
+
+        $data['current_categoryId'] = $categoryId;
+        $data['current_subcategoryId'] = $subcategoryId;
+        
+        return view('front.product_list', $data);
+    }
     
     public function list($categoryId = null, $subcategoryId = null, Request $request) {
-        var_dump($categoryId, $subcategoryId);
-        // die();
-        
         $data = $this->common_data;
         $data['cart_amount'] = $request->get('cart_amount');
         $data['product_categories'] = ProductCategory::where('display', '1')->orderBy('sequence', 'asc')->get();

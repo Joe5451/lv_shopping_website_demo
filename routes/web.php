@@ -75,9 +75,8 @@ Route::prefix('member')->name('member.')->middleware(['member.auth', 'cart.amoun
 
 // 購物商城
 Route::prefix('product')->middleware(['cart.amount'])->name('product.')->group(function () {
-    Route::get('/list', [ProductController::class, 'list'])->name('list');
-    Route::get('/list/{categoryId}/{subcategoryId}', [ProductController::class, 'list'])->name('list');
-    // Route::get('/list/{categoryId?}/{subcategoryId?}', [ProductController::class, 'list'])->name('list');
+    Route::get('/list/first', [ProductController::class, 'list'])->name('first_list');
+    Route::get('/list/{categoryId?}/{subcategoryId?}', [ProductController::class, 'list'])->name('list');
     Route::get('/content/{id}', [ProductController::class, 'content'])->name('content');
 });
 

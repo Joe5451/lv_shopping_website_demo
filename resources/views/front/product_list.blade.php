@@ -16,7 +16,7 @@
     <nav class="page_breadcrumb">
         <a href="{{ route('home') }}" class="page_breadcrumb_link">首頁</a>
         <span class="page_breadcrumb_separator">〉</span>
-        <a href="product_list.php" class="page_breadcrumb_link active">購物商城</a>
+        <a href="{{ route('product.first_list') }}" class="page_breadcrumb_link active">購物商城</a>
     </nav>
 
     <div class="product_container">
