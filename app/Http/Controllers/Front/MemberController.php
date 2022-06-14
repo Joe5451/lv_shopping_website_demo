@@ -72,7 +72,7 @@ class MemberController extends Controller
             return view('front.alert', [
                 'icon_type' => 'info',
                 'message' => 'Email 已存在，請重新註冊!',
-                'redirect' => route('member_login_form')
+                'redirect' => route('member.login_form')
             ]);
         }
 
