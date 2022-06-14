@@ -83,7 +83,7 @@ class MemberController extends Controller
         return view('front.alert', [
             'icon_type' => 'success',
             'message' => '註冊成功!',
-            'redirect' => route('member_login_form')
+            'redirect' => route('member.login_form')
         ]);
     }
 
