@@ -101,7 +101,7 @@ class CartController extends Controller
             return view('front.alert', [
                 'icon_type' => 'info',
                 'message' => '購物車內無商品!',
-                'redirect' => route('product.list')
+                'redirect' => route('product.first_list')
             ]);
         }
         
