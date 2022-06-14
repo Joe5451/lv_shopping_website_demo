@@ -10,6 +10,7 @@ class OrderItem extends Model
     use HasFactory;
 
     protected $table = 'order_items';
+    protected $primaryKey = 'order_item_id';
     public $timestamps = false; // 不存在 created_at 和 updated_at
 
     protected $fillable = [
