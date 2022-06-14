@@ -140,8 +140,8 @@ class OrderController extends Controller
         $is_product_data_updated = false;
 
         foreach ($cart_products as $cart_product) {
-            $product = Product::find($cart_product->product_id);
-            $product_option = ProductOption::find($cart_product->option_id);
+            $product = Product::find((int) $cart_product->product_id);
+            $product_option = ProductOption::find((int) $cart_product->option_id);
 
             if (is_null($product)
                 || $product->product_name != $cart_product->product_name
